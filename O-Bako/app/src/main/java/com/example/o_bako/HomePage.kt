@@ -15,7 +15,7 @@ class HomePage : AppCompatActivity() {
 
 //        Parcelize
         var x = intent.getParcelableExtra<User>(EXTRA_USERDOANK)
-        txt_parcelize.text = "Selamat Datang ${x?.Username} !"
+        txt_parcelize.text = "${x?.Username} Selamat Datang !"
 
     }
 }
