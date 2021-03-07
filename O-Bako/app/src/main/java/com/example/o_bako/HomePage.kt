@@ -11,7 +11,11 @@ class HomePage : AppCompatActivity() {
         setContentView(R.layout.activity_home_page)
 
         var user = intent.getStringExtra(EXTRA_USERNAME) ?: ""
-
         hellotxt.setText("Selamat Datang $user di O-Bako")
+
+//        Parcelize
+        var x = intent.getParcelableExtra<User>(EXTRA_USERDOANK)
+        txt_parcelize.text = "Selamat Datang ${x?.Username} !"
+
     }
 }

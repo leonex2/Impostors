@@ -16,10 +16,20 @@ class MainActivity : AppCompatActivity() {
 //      Intent Untuk Berpindah ke Activity HomePage
         btn_login.setOnClickListener {
             var IntentHome = Intent(this, HomePage::class.java)
+
             var user = input_login.text
-            //EXTRA_USERNAME berperan sebagai Key
+            //EXTRA_USERNAME berperan sebagai Key *EXTRA_USERNAME BUKAN "EXTRA_USERNAME"
+            //Jika Kita menggunakan "EXTRA_USERNAME" maka yang terpassing adalah "" -> Tidak ada
             //user berperan sebagai value
-            IntentHome.putExtra("EXTRA_USERNAME", user.toString())
+            IntentHome.putExtra(EXTRA_USERNAME, user.toString())
+
+            //Tanpa Parcelize
+//            IntentHome.putExtra(EXTRA_USERDOANK,userku.Username)
+//            IntentHome.putExtra(EXTRA_PASSWORD,userku.Password)
+//            IntentHome.putExtra(EXTRA_EMAIL,userku.Email)
+            //Parcelize
+            var x = User("Impostors", "Testingajakok","akukeren@gmail.com")
+            IntentHome.putExtra(EXTRA_USERDOANK,x)
             startActivity(IntentHome)
         }
         //Intent untuk berpindah ke Activity SignUp
