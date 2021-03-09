@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 //      Intent Untuk Berpindah ke Activity HomePage
         btn_login.setOnClickListener {
             var IntentHome = Intent(this, HomePage::class.java)
-
             var user = input_login.text
             //EXTRA_USERNAME berperan sebagai Key *EXTRA_USERNAME BUKAN "EXTRA_USERNAME"
             //Jika Kita menggunakan "EXTRA_USERNAME" maka yang terpassing adalah "" -> Tidak ada
