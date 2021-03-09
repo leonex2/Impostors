@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
+//Berfungsi sebagai Key EXTRA untuk pengerjaan onSavedInstanceState
 private const val EXTRA_ONSAVED = "EXTRA_ONSAVED"
 
 class SignUp : AppCompatActivity() {
