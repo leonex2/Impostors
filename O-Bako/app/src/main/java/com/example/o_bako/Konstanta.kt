@@ -3,6 +3,7 @@ package com.example.o_bako
 const val EXTRA_USERNAME = "Username"
 const val EXTRA_PASSWORD = "Password"
 const val EXTRA_EMAIL = "Email"
+const val EXTRA_ALAMAT = "Alamat"
 //Untuk Parcelize
 const val EXTRA_USERDOANK = "Userdoank"
 
