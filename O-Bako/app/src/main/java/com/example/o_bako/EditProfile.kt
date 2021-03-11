@@ -14,8 +14,8 @@ class EditProfile : AppCompatActivity() {
         var alamat = intent?.getStringExtra(EXTRA_ALAMAT)?:""
 
         button2.setOnClickListener {
-            textView3.text = editTextTextPersonName.text
-            editTextTextPersonName.setText("")
+            textView3.text = edit_alamat.text
+            edit_alamat.setText("")
         }
 
     }
