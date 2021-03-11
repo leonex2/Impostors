@@ -3,8 +3,6 @@ package com.example.o_bako
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_home_page.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_edit_profile.*
 import android.content.Intent
 
 class HomePage : AppCompatActivity() {
