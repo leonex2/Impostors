@@ -1,4 +1,4 @@
-package com.example.o_bako.items
+package com.example.o_bako
 
 const val EXTRA_USERNAME = "Username"
 const val EXTRA_PASSWORD = "Password"

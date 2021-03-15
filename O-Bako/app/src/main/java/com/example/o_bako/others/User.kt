@@ -1,4 +1,4 @@
-package com.example.o_bako.items
+package com.example.o_bako
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
