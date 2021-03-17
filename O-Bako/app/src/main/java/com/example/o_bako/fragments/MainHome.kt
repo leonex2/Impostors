@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import com.example.o_bako.EXTRA_USERDOANK
 import com.example.o_bako.EXTRA_USERNAME
 import com.example.o_bako.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_home.*
+import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +36,7 @@ class MainHome : Fragment() {
         }
     }
 
-
+    lateinit var interfaceData: InterfaceData
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,11 +44,18 @@ class MainHome : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main_home, container, false)
 
+        interfaceData = activity as InterfaceData
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
-
+        val nama_produk = view.findViewById<TextView>(R.id.veggies_opt)
+        val move = view.findViewById<Button>(R.id.move_btn)
+//      mengambil data dari argument melalui EXTRA
         val myPesan = arguments?.getString(EXTRA_USERS)
-
+//        mengisi text view TextView dengan variable myPesan
         loginTxt.text = "Login as, $myPesan"
+
+        move.setOnClickListener {
+            interfaceData.Kirim(nama_produk.text.toString())
+        }
 
         return view
     }
@@ -63,6 +72,11 @@ class MainHome : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
+
+//        menerima data dari MainActivity melalui fungsi newInstance
+//        kemudian dimasukan kedalam sebuah Extra
+//        mengisikan isi argument berdasarkan data yang dimasukan pada key kedalam fungsi Bundle
+//        *Fungsi newInstance dapat ditambah parameternya sesuai dengan kebutuhan
         fun newInstance(param1: String) =
             MainHome().apply {
                 arguments = Bundle().apply {
