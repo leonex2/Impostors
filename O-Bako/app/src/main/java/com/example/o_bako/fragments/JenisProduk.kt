@@ -1,13 +1,24 @@
 package com.example.o_bako.fragments
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.Image
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.o_bako.R
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import java.io.IOException
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,10 +51,37 @@ class JenisProduk : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_jenis_produk, container, false)
 
-        nama_jenis_barang = arguments?.getString("Pesan")
+
         val namaTxt = view.findViewById<TextView>(R.id.nama_product)
+        val viewImg = view.findViewById<ImageView>(R.id.imgView)
+
+        nama_jenis_barang = arguments?.getString("Pesan")
         namaTxt.text = nama_jenis_barang
+
+        var strUrl = "https://i.pinimg.com/originals/a1/c6/84/a1c684556890ce23c4811e32c2b882a7.png"
+
+        doAsync{
+            var myPhoto = processBitMap(strUrl)
+            uiThread{
+                viewImg.setImageBitmap(myPhoto)
+            }
+        }
         return view
+    }
+//  Fungsi untuk melakukan pemprosesan URL untuk mendapatkan gambar
+    private fun processBitMap(url: String): Bitmap? {
+        return try{
+            var url = URL(url)
+            val connection : HttpURLConnection = url.openConnection() as HttpURLConnection
+            connection.doInput = true;
+            connection.connect()
+            val input: InputStream = connection.inputStream
+            val myBitMap = BitmapFactory.decodeStream(input)
+            myBitMap
+        }catch (e: IOException){
+            e.printStackTrace()
+            null
+        }
     }
 
     companion object {
@@ -65,4 +103,5 @@ class JenisProduk : Fragment() {
                 }
             }
     }
+    
 }
