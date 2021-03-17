@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity(){
 
         navigationBar.itemIconTintList = null
 
+//        melakukan inisialisasi variable userLogin kemudian mengambil data dari EXTRA kemudian
+//        mengisi parameter pada fungsi newInstance dengan userLogin
+//        kemudian MainActivity diisi dengan fragment MainHome
         var userLogin = intent.getStringExtra(EXTRA_USERNAME)
         val fragment_home = MainHome.newInstance(userLogin.toString())
         supportFragmentManager

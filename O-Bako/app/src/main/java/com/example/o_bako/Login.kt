@@ -19,7 +19,7 @@ class Login : AppCompatActivity() {
     }
 //    Fungsi onClick pada Button Login di XML
 //    Berfungsi sebagai Intent dari Login ke MainActivity
-//
+//    kemudian akan menyimpan data myData pada sebuah KeyExtra
     fun moveFragment(view : View){
         val intentToMain = Intent(this,MainActivity::class.java)
         var myData = input_login.text.toString()

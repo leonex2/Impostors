@@ -43,11 +43,10 @@ class MainHome : Fragment() {
         val view = inflater.inflate(R.layout.fragment_main_home, container, false)
 
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
-
+//      mengambil data dari argument melalui EXTRA
         val myPesan = arguments?.getString(EXTRA_USERS)
-
+//        mengisi text view TextView dengan variable myPesan
         loginTxt.text = "Login as, $myPesan"
-
         return view
     }
 
@@ -63,6 +62,11 @@ class MainHome : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
+
+//        menerima data dari MainActivity melalui fungsi newInstance
+//        kemudian dimasukan kedalam sebuah Extra
+//        mengisikan isi argument berdasarkan data yang dimasukan pada key kedalam fungsi Bundle
+//        *Fungsi newInstance dapat ditambah parameternya sesuai dengan kebutuhan
         fun newInstance(param1: String) =
             MainHome().apply {
                 arguments = Bundle().apply {
