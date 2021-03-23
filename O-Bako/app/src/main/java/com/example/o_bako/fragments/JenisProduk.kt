@@ -54,6 +54,8 @@ class JenisProduk : Fragment() {
 
         val namaTxt = view.findViewById<TextView>(R.id.nama_product)
         val viewImg = view.findViewById<ImageView>(R.id.imgView)
+        val viewImg2 = view.findViewById<ImageView>(R.id.imgView2)
+        val viewImg3 = view.findViewById<ImageView>(R.id.imgView3)
 
         nama_jenis_barang = arguments?.getString("Pesan")
         namaTxt.text = nama_jenis_barang
@@ -64,6 +66,8 @@ class JenisProduk : Fragment() {
             var myPhoto = processBitMap(strUrl)
             uiThread{
                 viewImg.setImageBitmap(myPhoto)
+                viewImg2.setImageBitmap(myPhoto)
+                viewImg3.setImageBitmap(myPhoto)
             }
         }
         return view
