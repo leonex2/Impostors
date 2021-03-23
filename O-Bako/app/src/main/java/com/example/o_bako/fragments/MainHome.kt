@@ -45,16 +45,28 @@ class MainHome : Fragment() {
         val view = inflater.inflate(R.layout.fragment_main_home, container, false)
 
         interfaceData = activity as InterfaceData
+
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
-        val nama_produk = view.findViewById<TextView>(R.id.veggies_opt)
-        val move = view.findViewById<Button>(R.id.move_btn)
+        val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
+        val food_product = view.findViewById<TextView>(R.id.food_opt)
+        val drinks_product = view.findViewById<TextView>(R.id.drink_opt)
+        val others_product = view.findViewById<TextView>(R.id.others_opt)
 //      mengambil data dari argument melalui EXTRA
         val myPesan = arguments?.getString(EXTRA_USERS)
 //        mengisi text view TextView dengan variable myPesan
         loginTxt.text = "Login as, $myPesan"
 
-        move.setOnClickListener {
-            interfaceData.Kirim(nama_produk.text.toString())
+        veggies_product.setOnClickListener {
+            interfaceData.Kirim(veggies_product.text.toString())
+        }
+        food_product.setOnClickListener {
+            interfaceData.Kirim(food_product.text.toString())
+        }
+        drinks_product.setOnClickListener {
+            interfaceData.Kirim(drinks_product.text.toString())
+        }
+        others_product.setOnClickListener {
+            interfaceData.Kirim(others_product.text.toString())
         }
 
         return view
