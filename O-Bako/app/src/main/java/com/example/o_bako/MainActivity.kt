@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity(), InterfaceData{
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         navigationBar.itemIconTintList = null
 
 //        melakukan inisialisasi variable userLogin kemudian mengambil data dari EXTRA kemudian

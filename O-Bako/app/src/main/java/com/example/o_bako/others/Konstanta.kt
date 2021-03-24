@@ -10,3 +10,6 @@ const val EXTRA_USERDOANK = "Userdoank"
 const val EXTRA_REQUEST_CODE = 1000 //Tidak boleh Negatif
 const val EXTRA_RESULT_CODE = 111 // Ok
 const val EXTRA_CANCEL_CODE = -1 // Fail
+
+
+const val EXTRA_WAKTU = "EXTRA_WAKTU"
