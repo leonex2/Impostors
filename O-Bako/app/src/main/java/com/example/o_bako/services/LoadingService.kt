@@ -15,13 +15,13 @@ class LoadingService : JobIntentService() {
         do{
             Thread.sleep(10)
             progressBar+=1
-            var intentLoading = Intent(PROG_DELAY)
-            intentLoading.putExtra(DELAY_TIME,progressBar)
-            intentLoading.putExtra(DELAY_DONE,false)
+            var intentFileDownload = Intent(PROG_DELAY)
+            intentFileDownload.putExtra(DELAY_TIME,progressBar)
+            intentFileDownload.putExtra(DELAY_DONE,false)
             if(progressBar>=100){
-                intentLoading.putExtra(DELAY_DONE,true)
+                intentFileDownload.putExtra(DELAY_DONE,true)
             }
-            sendBroadcast(intentLoading)
+            sendBroadcast(intentFileDownload)
         }while(progressBar < 100)
     }
     override fun onDestroy() {
