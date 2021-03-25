@@ -1,13 +1,9 @@
 package com.example.o_bako
 
 import android.content.Intent
-import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.provider.Telephony
-import android.text.Editable
-import com.example.o_bako.others.SMSReceiver
 import com.example.o_bako.services.MyIntentService
 import kotlinx.android.synthetic.main.activity_sign_up.*
 

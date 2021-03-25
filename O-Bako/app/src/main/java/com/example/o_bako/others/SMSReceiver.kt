@@ -8,8 +8,6 @@ import android.provider.Telephony
 import android.telephony.SmsMessage
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.example.o_bako.EXTRA_MSG_BODY
-import com.example.o_bako.EXTRA_PH_NUMBER
 
 class SMSReceiver : BroadcastReceiver() {
 
@@ -26,8 +24,6 @@ class SMSReceiver : BroadcastReceiver() {
                 var no_pengirim = message.originatingAddress
                 Toast.makeText(context,"Phone : $no_pengirim \n" +
                         "Message : $pesan", Toast.LENGTH_SHORT).show()
-                intent.putExtra(EXTRA_MSG_BODY,pesan)
-                intent.putExtra(EXTRA_PH_NUMBER,no_pengirim.toString())
             }
         }
     }
