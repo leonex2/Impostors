@@ -16,7 +16,7 @@ class MyIntentService : JobIntentService() {
         if(intent!=null){
             var duration = intent.getLongExtra(EXTRA_WAKTU,0L)
             try {
-                for(i in 0..2) {
+                for(i in 1..2) {
                     Thread.sleep(duration)
                 }
             }

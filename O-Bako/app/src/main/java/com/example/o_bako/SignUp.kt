@@ -22,7 +22,7 @@ class SignUp : AppCompatActivity() {
                 else {
                     intent.putExtra(EXTRA_USERNAME, user)
                     setResult(EXTRA_RESULT_CODE, intent)
-
+                    
                     myService.putExtra(EXTRA_WAKTU,300L)
                     MyIntentService.enqueueWork(this,myService)
                 }

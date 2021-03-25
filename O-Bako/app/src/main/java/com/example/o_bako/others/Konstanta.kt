@@ -13,3 +13,7 @@ const val EXTRA_CANCEL_CODE = -1 // Fail
 
 
 const val EXTRA_WAKTU = "EXTRA_WAKTU"
+const val JOB_ID = 2709
+const val PROG_DELAY = "BAR"
+const val DELAY_TIME = "DELAY"
+const val DELAY_DONE = "DONE"
