@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity(), InterfaceData{
         setContentView(R.layout.activity_main)
 
         navigationBar.itemIconTintList = null
-
         var AirPlaneReceiver = MyReceiver()
         var filterku = IntentFilter()
         filterku.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED)
