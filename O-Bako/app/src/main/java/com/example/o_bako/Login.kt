@@ -11,7 +11,6 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.example.o_bako.services.LoadingService
 import kotlinx.android.synthetic.main.activity_login.*
 import android.content.Intent.ACTION_POWER_CONNECTED as IntentACTION_POWER_CONNECTED
