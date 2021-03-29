@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:width="250dp"
         android:ems="10"
-        android:hint="Login"
+        android:hint="Username"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="259dp" />
@@ -111,22 +111,6 @@
         android:textColor="#03bafc"
         tools:layout_editor_absoluteX="217dp"
         tools:layout_editor_absoluteY="550dp" />
-
-    <ProgressBar
-        android:id="@+id/myProgress"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:layout_margin="10dp"
-        android:background="#FFF"
-        android:max="100"
-        android:min="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_signup"
-        app:layout_constraintVertical_bias="0.192" />
 
     <TextView
         android:id="@+id/battery_lvl"

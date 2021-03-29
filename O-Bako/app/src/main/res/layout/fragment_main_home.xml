@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".fragments.MainHome">
 
+
     <TextView
         android:id="@+id/login_name"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:background="#2AB3E5"
         android:gravity="center|end"
         android:paddingRight="10dp"
@@ -20,6 +21,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/notify_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        android:src="@drawable/icons8_notifications"
+        app:layout_constraintBottom_toBottomOf="@+id/navigationBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.014"
+        app:tint="@color/white" />
 
     <ImageView
         android:id="@+id/banner"

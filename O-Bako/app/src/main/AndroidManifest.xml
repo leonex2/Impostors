@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
@@ -15,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".LoadingScreen"></activity>
 
         <receiver
             android:name=".others.SMSReceiver"
@@ -25,7 +25,6 @@
                 <action android:name="android.provider.Telephony.SMS_READ" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".others.MyReceiver"
             android:enabled="true"
@@ -39,7 +38,6 @@
             android:name=".services.LoadingService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
         <service
             android:name=".services.MyIntentService"
             android:exported="true"

@@ -4,14 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.core.app.JobIntentService
-import com.example.o_bako.DELAY_DONE
-import com.example.o_bako.DELAY_TIME
-import com.example.o_bako.PROG_DELAY
-import com.example.o_bako.JOB_ID
+import com.example.o_bako.*
 
 class LoadingService : JobIntentService() {
     override fun onHandleWork(intent: Intent) {
         var progressBar = 0
+        var intentToMain = Intent(this, MainActivity::class.java)
         do{
             Thread.sleep(10)
             progressBar+=1
@@ -23,6 +21,7 @@ class LoadingService : JobIntentService() {
             }
             sendBroadcast(loadingProgress)
         }while(progressBar < 100)
+        startActivity(intentToMain)
     }
     override fun onDestroy() {
         super.onDestroy()
