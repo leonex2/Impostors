@@ -4,20 +4,35 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.o_bako.fragments.InterfaceData
-import com.example.o_bako.fragments.JenisProduk
-import com.example.o_bako.fragments.MainHome
+import androidx.fragment.app.Fragment
+import com.example.o_bako.fragments.*
 import com.example.o_bako.others.MyReceiver
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), InterfaceData{
 
     var userLogin :String? = ""
+    private fun moveFragment(fragment : Fragment){
+        val transaction = this.supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.myContainer, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         navigationBar.itemIconTintList = null
+
+        navigationBar.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.icon_home -> moveFragment(MainHome())
+                R.id.icon_cart -> moveFragment(JenisProduk())
+                R.id.icon_history -> moveFragment(History())
+                R.id.icon_setting -> moveFragment(Setting())
+            }
+            true
+        }
 
         var AirPlaneReceiver = MyReceiver()
         var filterku = IntentFilter()
