@@ -16,8 +16,8 @@
         android:enabled="true"
         android:title="Cart" />
     <item
-        android:id="@+id/icon_profile"
+        android:id="@+id/icon_setting"
         android:icon="@drawable/icons8_gear"
         android:enabled="true"
-        android:title="Profile" />
+        android:title="Setting" />
 </menu>

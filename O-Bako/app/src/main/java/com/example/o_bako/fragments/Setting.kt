@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import com.example.o_bako.R
+import kotlinx.android.synthetic.main.fragment_setting.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +39,17 @@ class Setting : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+        val view = inflater.inflate(R.layout.fragment_setting, container, false)
+
+        val new_alamat = view.findViewById<TextView>(R.id.my_new_alamat)
+        val edit_new = view.findViewById<EditText>(R.id.edit_new_alamat)
+        val btn_submit = view.findViewById<Button>(R.id.btn_edit_submit)
+
+        btn_submit.setOnClickListener {
+            new_alamat.text = edit_new.text
+            edit_new.setText("")
+        }
+        return view
     }
 
     companion object {
