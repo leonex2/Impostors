@@ -1,24 +1,26 @@
 package com.example.o_bako.fragments
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.media.Image
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import com.example.o_bako.Login
 import com.example.o_bako.MainActivity
 import com.example.o_bako.R
+import com.example.o_bako.SignUp
+import com.example.o_bako.others.NotificationReceiver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_home.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,6 +62,15 @@ class MainHome : Fragment() {
         notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         interfaceData = activity as InterfaceData
 
+
+        //val intent_2 = Intent(this.activity, Login::class.java).apply {
+        //    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        //}
+        //val pendingIntent_2: PendingIntent = PendingIntent.getActivity(this.activity, 0, intent_2,0)
+
+        val intent_2 = Intent(this.activity, NotificationReceiver::class.java)
+        val pendingIntent_2: PendingIntent = PendingIntent.getBroadcast(this.activity,0,intent_2,0)
+
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
         val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
         val food_product = view.findViewById<TextView>(R.id.food_opt)
@@ -86,7 +97,9 @@ class MainHome : Fragment() {
         }
 
         icon_notify.setOnClickListener{
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+
                 notificationChannel = NotificationChannel(ch_id, desc_channel, NotificationManager.IMPORTANCE_HIGH)
                 notificationChannel.enableLights(true)
                 notificationChannel.setShowBadge(true)
@@ -94,14 +107,20 @@ class MainHome : Fragment() {
 
                 builder = Notification.Builder(activity, ch_id)
                         .setContentTitle("Diskon Akhir Bulan")
-                        .setContentText("Diskon ini hanya berlaku selama 3 hari !")
+                        .setContentText("Login sekarang dan nikmati diskon nya!")
                         .setSmallIcon(R.drawable.icons8_notifications)
+                        .addAction(
+                        R.drawable.icon8_cart,"VEGIE",pendingIntent_2);
+
             }
             else {
                 builder = Notification.Builder(activity)
                         .setContentTitle("Monthly Sales")
                         .setContentText("Diskon ini hanya berlaku selama 3 hari !")
                         .setSmallIcon(R.drawable.icons8_notifications)
+                        .addAction(
+                        R.drawable.icon8_cart,"SNOOZE",pendingIntent_2);
+
             }
             notificationManager.notify(notification_channel1, builder.build())
         }
