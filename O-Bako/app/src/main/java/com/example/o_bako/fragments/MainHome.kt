@@ -1,33 +1,22 @@
 package com.example.o_bako.fragments
 
-<<<<<<< HEAD
 import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-=======
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
->>>>>>> origin/main
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-<<<<<<< HEAD
 import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
-import com.example.o_bako.Login
 import com.example.o_bako.MainActivity
-=======
-
->>>>>>> origin/main
 import com.example.o_bako.R
-import com.example.o_bako.SignUp
 import com.example.o_bako.others.NotificationReceiver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_home.*
@@ -74,15 +63,11 @@ class MainHome : Fragment() {
         notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         interfaceData = activity as InterfaceData
+        val intent = Intent(this.activity, MainActivity::class.java)
+        val pending: PendingIntent = PendingIntent.getActivity(this.activity,0,intent,0)
 
-
-        //val intent_2 = Intent(this.activity, Login::class.java).apply {
-        //    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        //}
-        //val pendingIntent_2: PendingIntent = PendingIntent.getActivity(this.activity, 0, intent_2,0)
-
-        val intent_2 = Intent(this.activity, NotificationReceiver::class.java)
-        val pendingIntent_2: PendingIntent = PendingIntent.getBroadcast(this.activity,0,intent_2,0)
+        val intent2 = Intent(this.activity, NotificationReceiver::class.java)
+        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this.activity,0,intent2,0)
 
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
         val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
@@ -111,34 +96,26 @@ class MainHome : Fragment() {
 
         icon_notify.setOnClickListener{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-
                 notificationChannel = NotificationChannel(ch_id, desc_channel, NotificationManager.IMPORTANCE_HIGH)
                 notificationChannel.enableLights(true)
                 notificationChannel.setShowBadge(true)
                 notificationManager.createNotificationChannel(notificationChannel)
 
                 builder = Notification.Builder(activity, ch_id)
-<<<<<<< HEAD
                         .setContentTitle("Diskon Akhir Bulan")
                         .setContentText("Login sekarang dan nikmati diskon nya!")
-=======
-                        .setContentTitle("Promo Akhir Bulan")
-                        .setContentText("Promo ini hanya berlaku selama 3 hari !")
->>>>>>> origin/main
                         .setSmallIcon(R.drawable.icons8_notifications)
-                        .addAction(
-                        R.drawable.icon8_cart,"VEGIE",pendingIntent_2);
-
+                        .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.drawable.icons8_notifications))
+                        .addAction(R.drawable.icon8_cart,"Check it Out!", pending)
+                        .addAction(R.drawable.icon8_cart,"Nah",pendingIntent);
             }
             else {
                 builder = Notification.Builder(activity)
                         .setContentTitle("Monthly Promo")
                         .setContentText("Promo ini hanya berlaku selama 3 hari !")
                         .setSmallIcon(R.drawable.icons8_notifications)
-                        .addAction(
-                        R.drawable.icon8_cart,"SNOOZE",pendingIntent_2);
-
+                        .addAction(R.drawable.icon8_cart,"Check it Out!", pending)
+                        .addAction(R.drawable.icon8_cart,"Nah",pendingIntent);
             }
             notificationManager.notify(notification_channel1, builder.build())
         }
