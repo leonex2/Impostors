@@ -104,16 +104,18 @@ class MainHome : Fragment() {
                 builder = Notification.Builder(activity, ch_id)
                         .setContentTitle("Diskon Akhir Bulan")
                         .setContentText("Login sekarang dan nikmati diskon nya!")
-                        .setSmallIcon(R.drawable.icons8_notifications)
-                        .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.drawable.icons8_notifications))
+                        .setSmallIcon(R.drawable.icon_blue)
+                        .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.drawable.icon_blue))
+                        .setShowWhen(true)
                         .addAction(R.drawable.icon8_cart,"Check it Out!", pending)
                         .addAction(R.drawable.icon8_cart,"Nah",pendingIntent);
             }
             else {
                 builder = Notification.Builder(activity)
-                        .setContentTitle("Monthly Promo")
-                        .setContentText("Promo ini hanya berlaku selama 3 hari !")
-                        .setSmallIcon(R.drawable.icons8_notifications)
+                        .setContentTitle("Diskon Akhir Bulan")
+                        .setContentText("Login sekarang dan nikmati diskon nya!")
+                        .setSmallIcon(R.drawable.icon_blue)
+                        .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.drawable.icon_blue))
                         .addAction(R.drawable.icon8_cart,"Check it Out!", pending)
                         .addAction(R.drawable.icon8_cart,"Nah",pendingIntent);
             }
