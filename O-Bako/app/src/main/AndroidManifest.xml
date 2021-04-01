@@ -15,13 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <receiver
-            android:name=".others.NotificationReceiver2"
-            android:enabled="true"
-            android:exported="true"></receiver>
-
-        <activity android:name=".LoadingScreen" />
-
-        <receiver
             android:name=".others.SMSReceiver"
             android:enabled="true"
             android:exported="true">
@@ -43,6 +36,7 @@
             android:name=".services.LoadingService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <service
             android:name=".services.MyIntentService"
             android:exported="true"
