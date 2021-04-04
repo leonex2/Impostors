@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.o_bako.fragments.*
 import com.example.o_bako.others.MyReceiver
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main_home.*
 
 class MainActivity : AppCompatActivity(), InterfaceData{
 

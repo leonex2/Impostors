@@ -3,23 +3,21 @@ package com.example.o_bako.fragments
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.o_bako.MainActivity
+import com.example.o_bako.EXTRA_USERNAME
 import com.example.o_bako.R
-import com.example.o_bako.others.NotificationReceiver
+import com.example.o_bako.services.MyAlarm
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_home.*
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,12 +44,9 @@ class MainHome : Fragment() {
 
     lateinit var interfaceData: InterfaceData
 
-    val notification_channel1 = 1
-    val ch_id = "com.example.o_bako.fragments"
-    val desc_channel = "Promo"
-    lateinit var notificationManager: NotificationManager
-    lateinit var notificationChannel: NotificationChannel
-    lateinit var builder: Notification.Builder
+    private var myPendingIntent: PendingIntent? = null
+    private var sendIntent: Intent? = null
+    private var myAlarmManager: AlarmManager? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,15 +55,9 @@ class MainHome : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main_home, container, false)
 
-        notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        var myAlarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         interfaceData = activity as InterfaceData
-        val intent = Intent(this.activity, MainActivity::class.java)
-        val pending: PendingIntent = PendingIntent.getActivity(this.activity,0,intent,0)
-
-        val intent2 = Intent(this.activity, NotificationReceiver::class.java)
-        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this.activity,0,intent2,0)
-
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
         val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
         val food_product = view.findViewById<TextView>(R.id.food_opt)
@@ -76,9 +65,8 @@ class MainHome : Fragment() {
         val others_product = view.findViewById<TextView>(R.id.others_opt)
         val icon_notify = view.findViewById<ImageView>(R.id.notify_icon)
 
-//      mengambil data dari argument melalui EXTRA
         val myPesan = arguments?.getString(EXTRA_USERS)
-//        mengisi text view TextView dengan variable myPesan
+
         loginTxt.text = "Login as, $myPesan"
 
         veggies_product.setOnClickListener {
@@ -95,31 +83,12 @@ class MainHome : Fragment() {
         }
 
         icon_notify.setOnClickListener{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                notificationChannel = NotificationChannel(ch_id, desc_channel, NotificationManager.IMPORTANCE_HIGH)
-                notificationChannel.enableLights(true)
-                notificationChannel.setShowBadge(true)
-                notificationManager.createNotificationChannel(notificationChannel)
-
-                builder = Notification.Builder(activity, ch_id)
-                        .setContentTitle("Diskon Akhir Bulan")
-                        .setContentText("Login sekarang dan nikmati diskon nya!")
-                        .setSmallIcon(R.drawable.icon_blue)
-                        .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.drawable.icon_blue))
-                        .setShowWhen(true)
-                        .addAction(R.drawable.icon8_cart,"Check it Out!", pending)
-                        .addAction(R.drawable.icon8_cart,"Nah",pendingIntent);
-            }
-            else {
-                builder = Notification.Builder(activity)
-                        .setContentTitle("Diskon Akhir Bulan")
-                        .setContentText("Login sekarang dan nikmati diskon nya!")
-                        .setSmallIcon(R.drawable.icon_blue)
-                        .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.drawable.icon_blue))
-                        .addAction(R.drawable.icon8_cart,"Check it Out!", pending)
-                        .addAction(R.drawable.icon8_cart,"Nah",pendingIntent);
-            }
-            notificationManager.notify(notification_channel1, builder.build())
+            var myTimer = Calendar.getInstance()
+            myTimer.add(Calendar.SECOND,5)
+            sendIntent = Intent(this.activity,MyAlarm::class.java)
+            myPendingIntent = PendingIntent.getBroadcast(this.activity,565,sendIntent,0)
+            myAlarmManager?.set(AlarmManager.RTC,myTimer.timeInMillis,myPendingIntent)
+            Toast.makeText(this.context,"We will inform you if we got Promo!", Toast.LENGTH_LONG).show()
         }
         return view
     }
