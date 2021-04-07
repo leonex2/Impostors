@@ -1,8 +1,12 @@
 package com.example.o_bako.fragments
 
 import android.app.*
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +14,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import com.example.o_bako.EXTRA_USERNAME
 import com.example.o_bako.R
 import com.example.o_bako.services.MyAlarm
+import com.example.o_bako.services.Scheduler
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_home.*
@@ -48,6 +54,7 @@ class MainHome : Fragment() {
     private var sendIntent: Intent? = null
     private var myAlarmManager: AlarmManager? = null
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,7 +62,7 @@ class MainHome : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main_home, container, false)
 
-        var myAlarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        myAlarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         interfaceData = activity as InterfaceData
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
@@ -88,11 +95,9 @@ class MainHome : Fragment() {
             sendIntent = Intent(this.activity,MyAlarm::class.java)
             myPendingIntent = PendingIntent.getBroadcast(this.activity,565,sendIntent,0)
             myAlarmManager?.set(AlarmManager.RTC,myTimer.timeInMillis,myPendingIntent)
-            Toast.makeText(this.context,"We will inform you if we got Promo!", Toast.LENGTH_LONG).show()
         }
         return view
     }
-
     companion object {
         const val EXTRA_USERS = "12345"
         /**

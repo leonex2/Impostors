@@ -1,30 +1,40 @@
 package com.example.o_bako
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.o_bako.fragments.*
 import com.example.o_bako.others.MyReceiver
+import com.example.o_bako.services.Scheduler
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_main_home.*
+
 
 class MainActivity : AppCompatActivity(), InterfaceData{
 
     var userLogin :String? = ""
+    var jobID = 14
     private fun moveFragment(fragment : Fragment){
         val transaction = this.supportFragmentManager.beginTransaction()
         transaction.replace(R.id.myContainer, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         navigationBar.itemIconTintList = null
-
+        soonNotified()
         navigationBar.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.icon_home -> moveFragment(MainHome())
@@ -47,6 +57,18 @@ class MainActivity : AppCompatActivity(), InterfaceData{
         val fragment_home = MainHome.newInstance(userLogin.toString())
         supportFragmentManager
             .beginTransaction().replace(R.id.myContainer, fragment_home).commit()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun soonNotified() {
+        var serviceComponent = ComponentName(this,Scheduler::class.java)
+        var myInfo = JobInfo.Builder(jobID,serviceComponent)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setRequiresDeviceIdle(false)
+                .setRequiresCharging(false)
+                .setPeriodic(3*60*1000)
+        var jobSchedule = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobSchedule.schedule(myInfo.build())
     }
 
     override fun Kirim(user: String) {
