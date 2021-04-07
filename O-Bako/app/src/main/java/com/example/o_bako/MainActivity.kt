@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), InterfaceData{
 
     var userLogin :String? = ""
-    var jobID = 14
     private fun moveFragment(fragment : Fragment){
         val transaction = this.supportFragmentManager.beginTransaction()
         transaction.replace(R.id.myContainer, fragment)
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity(), InterfaceData{
         setContentView(R.layout.activity_main)
 
         navigationBar.itemIconTintList = null
-        soonNotified()
+
         navigationBar.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.icon_home -> moveFragment(MainHome())
@@ -44,7 +43,6 @@ class MainActivity : AppCompatActivity(), InterfaceData{
             }
             true
         }
-
         var AirPlaneReceiver = MyReceiver()
         var filterku = IntentFilter()
         filterku.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED)
@@ -57,18 +55,6 @@ class MainActivity : AppCompatActivity(), InterfaceData{
         val fragment_home = MainHome.newInstance(userLogin.toString())
         supportFragmentManager
             .beginTransaction().replace(R.id.myContainer, fragment_home).commit()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun soonNotified() {
-        var serviceComponent = ComponentName(this,Scheduler::class.java)
-        var myInfo = JobInfo.Builder(jobID,serviceComponent)
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setRequiresDeviceIdle(false)
-                .setRequiresCharging(false)
-                .setPeriodic(3*60*1000)
-        var jobSchedule = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        jobSchedule.schedule(myInfo.build())
     }
 
     override fun Kirim(user: String) {

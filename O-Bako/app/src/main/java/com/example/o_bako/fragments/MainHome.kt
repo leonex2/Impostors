@@ -53,7 +53,7 @@ class MainHome : Fragment() {
     private var myPendingIntent: PendingIntent? = null
     private var sendIntent: Intent? = null
     private var myAlarmManager: AlarmManager? = null
-
+    var jobID = 111
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -95,9 +95,24 @@ class MainHome : Fragment() {
             sendIntent = Intent(this.activity,MyAlarm::class.java)
             myPendingIntent = PendingIntent.getBroadcast(this.activity,565,sendIntent,0)
             myAlarmManager?.set(AlarmManager.RTC,myTimer.timeInMillis,myPendingIntent)
+
+            newNotify()
         }
         return view
     }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun newNotify() {
+        var serviceComponent = ComponentName(context!!,Scheduler::class.java)
+        var myInfo = JobInfo.Builder(jobID,serviceComponent)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setRequiresDeviceIdle(false)
+                .setRequiresCharging(false)
+                .setMinimumLatency(15*1000)
+        var jobSchedule = context!!.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobSchedule.schedule(myInfo.build())
+    }
+
     companion object {
         const val EXTRA_USERS = "12345"
         /**
