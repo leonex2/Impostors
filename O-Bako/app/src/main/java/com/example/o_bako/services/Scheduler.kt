@@ -44,7 +44,7 @@ class Scheduler : JobService() {
         var myNotifyBuild = NotificationCompat.Builder(this, channel_id)
                 .setContentTitle("Oho, Check it out")
                 .setContentText("Aye, We got a new Deal for you !")
-                .setSmallIcon(R.drawable.icons8_notifications)
+                .setSmallIcon(R.drawable.icon_blue)
                 .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setShowWhen(true)
