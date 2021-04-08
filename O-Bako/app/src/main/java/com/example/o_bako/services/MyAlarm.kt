@@ -31,8 +31,8 @@ class MyAlarm : BroadcastReceiver() {
 
         var notifi_builder = NotificationCompat.Builder(context, channel_id)
                 .setContentTitle("Quick Notification")
-                .setContentText("You will be Notified soon")
-                .setSmallIcon(R.drawable.icons8_notifications)
+                .setContentText("Hello, We got some deals for you")
+                .setSmallIcon(R.drawable.icon_blue)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources,R.drawable.icon_blue))
                 .setShowWhen(true)

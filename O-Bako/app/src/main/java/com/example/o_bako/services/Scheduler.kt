@@ -31,7 +31,7 @@ class Scheduler : JobService() {
         getNotified()
         getKonversi(params)
         Log.w("TAG", "Mulai")
-        return false
+        return true
     }
 
     override fun onStopJob(params: JobParameters?): Boolean {
@@ -56,7 +56,7 @@ class Scheduler : JobService() {
 
         var myNotifyBuild = NotificationCompat.Builder(this, channel_id)
             .setContentTitle("Oho, Check it out")
-            .setContentText("Check Our Shop Now ! We got some HOT DEALS")
+            .setContentText("Hi, We got a Juicy HOT DEALS here. Check our shop NOW!")
             .setSmallIcon(R.drawable.icon_blue)
             .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
