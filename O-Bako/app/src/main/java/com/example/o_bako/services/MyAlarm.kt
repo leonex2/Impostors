@@ -9,7 +9,9 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.example.o_bako.EXTRA_IDR
 import com.example.o_bako.R
+import org.json.JSONObject
 
 class MyAlarm : BroadcastReceiver() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -29,7 +31,7 @@ class MyAlarm : BroadcastReceiver() {
 
         var notifi_builder = NotificationCompat.Builder(context, channel_id)
                 .setContentTitle("Quick Notification")
-                .setContentText("You will be Notified if we got some deals")
+                .setContentText("You will be Notified soon")
                 .setSmallIcon(R.drawable.icons8_notifications)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources,R.drawable.icon_blue))

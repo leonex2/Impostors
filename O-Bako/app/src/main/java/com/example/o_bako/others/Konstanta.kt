@@ -17,3 +17,5 @@ const val JOB_ID = 2709
 const val PROG_DELAY = "BAR"
 const val DELAY_TIME = "DELAY"
 const val DELAY_DONE = "DONE"
+
+const val EXTRA_IDR = "EXTRA_IDR"

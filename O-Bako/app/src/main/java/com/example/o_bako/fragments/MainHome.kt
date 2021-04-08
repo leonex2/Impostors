@@ -13,9 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.o_bako.R
 import com.example.o_bako.others.Konversi
@@ -41,7 +39,6 @@ class MainHome : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var JobSchedulerId = 10
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -55,7 +52,10 @@ class MainHome : Fragment() {
     private var myPendingIntent: PendingIntent? = null
     private var sendIntent: Intent? = null
     private var myAlarmManager: AlarmManager? = null
+
     var jobID = 111
+    var JobSchedulerId = 10
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,35 +91,29 @@ class MainHome : Fragment() {
         others_product.setOnClickListener {
             interfaceData.Kirim(others_product.text.toString())
         }
-        
-        val new_kurensi = view.findViewById<TextView>(R.id.textView)
-        startMyJob()
-        new_kurensi.text = Konversi.startMyJob()
-        icon_notify.setOnClickListener{
 
+        icon_notify.setOnClickListener{
             var myTimer = Calendar.getInstance()
             myTimer.add(Calendar.SECOND,5)
             sendIntent = Intent(this.activity,MyAlarm::class.java)
             myPendingIntent = PendingIntent.getBroadcast(this.activity,565,sendIntent,0)
             myAlarmManager?.set(AlarmManager.RTC,myTimer.timeInMillis,myPendingIntent)
-
             newNotify()
-
         }
         return view
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun startMyJob() {
-        var serviceComponent = ComponentName(context!!,Konversi::class.java)
-        var mJobInfo = JobInfo.Builder(JobSchedulerId,serviceComponent)
-            .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-            .setRequiresDeviceIdle(false)
-            .setRequiresCharging(false)
-            .setMinimumLatency(15*1000)
-        var JobKonversi = context!!.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        JobKonversi.schedule((mJobInfo.build()))
-    }
+//    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+//    private fun startMyJob() {
+//        var serviceComponent = ComponentName(context!!,Konversi::class.java)
+//        var mJobInfo = JobInfo.Builder(JobSchedulerId,serviceComponent)
+//            .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+//            .setRequiresDeviceIdle(false)
+//            .setRequiresCharging(false)
+//            .setPeriodic(2*60*1000)
+//        var JobKonversi = context!!.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+//        JobKonversi.schedule((mJobInfo.build()))
+//    }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun newNotify() {
@@ -135,6 +129,7 @@ class MainHome : Fragment() {
 
     companion object {
         const val EXTRA_USERS = "12345"
+        const val EXTRA_KURS = "EXTRA_KURS"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

@@ -1,20 +1,15 @@
 package com.example.o_bako
 
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
-import android.content.Context
+
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.o_bako.fragments.*
 import com.example.o_bako.others.MyReceiver
-import com.example.o_bako.services.Scheduler
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -27,6 +22,7 @@ class MainActivity : AppCompatActivity(), InterfaceData{
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)

@@ -30,10 +30,12 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
+
         <service android:name=".others.Konversi"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
+
         <service
             android:name=".services.MyIntentService"
             android:exported="true"
