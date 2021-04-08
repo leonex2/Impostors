@@ -51,7 +51,7 @@ class Scheduler : JobService() {
 
         var myNotifyBuild = NotificationCompat.Builder(this, channel_id)
             .setContentTitle("Quick Notifications")
-            .setContentText("Today's Rate : $get_curr")
+            .setContentText("Just for Info. Today's IDR to USD Rate : $get_curr")
             .setSmallIcon(R.drawable.icon_blue)
             .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
