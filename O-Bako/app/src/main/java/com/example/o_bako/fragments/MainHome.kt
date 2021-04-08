@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.o_bako.R
+import com.example.o_bako.others.Konversi
 import com.example.o_bako.services.MyAlarm
 import com.example.o_bako.services.Scheduler
 import kotlinx.android.synthetic.main.activity_login.*
@@ -40,7 +41,7 @@ class MainHome : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    var JobSchedulerId = 10
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -49,6 +50,7 @@ class MainHome : Fragment() {
     }
 
     lateinit var interfaceData: InterfaceData
+    private lateinit var Konversi: Konversi
 
     private var myPendingIntent: PendingIntent? = null
     private var sendIntent: Intent? = null
@@ -60,6 +62,7 @@ class MainHome : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         val view = inflater.inflate(R.layout.fragment_main_home, container, false)
 
         myAlarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -88,8 +91,12 @@ class MainHome : Fragment() {
         others_product.setOnClickListener {
             interfaceData.Kirim(others_product.text.toString())
         }
-
+        
+        val new_kurensi = view.findViewById<TextView>(R.id.textView)
+        startMyJob()
+        new_kurensi.text = Konversi.startMyJob()
         icon_notify.setOnClickListener{
+
             var myTimer = Calendar.getInstance()
             myTimer.add(Calendar.SECOND,5)
             sendIntent = Intent(this.activity,MyAlarm::class.java)
@@ -97,8 +104,21 @@ class MainHome : Fragment() {
             myAlarmManager?.set(AlarmManager.RTC,myTimer.timeInMillis,myPendingIntent)
 
             newNotify()
+
         }
         return view
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun startMyJob() {
+        var serviceComponent = ComponentName(context!!,Konversi::class.java)
+        var mJobInfo = JobInfo.Builder(JobSchedulerId,serviceComponent)
+            .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+            .setRequiresDeviceIdle(false)
+            .setRequiresCharging(false)
+            .setMinimumLatency(15*1000)
+        var JobKonversi = context!!.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        JobKonversi.schedule((mJobInfo.build()))
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
