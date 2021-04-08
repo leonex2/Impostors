@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.o_bako.EXTRA_IDR
 import com.example.o_bako.R
+import com.example.o_bako.services.Scheduler.Companion.pass_data
 import org.json.JSONObject
 
 class MyAlarm : BroadcastReceiver() {
@@ -31,12 +32,11 @@ class MyAlarm : BroadcastReceiver() {
 
         var notifi_builder = NotificationCompat.Builder(context, channel_id)
                 .setContentTitle("Quick Notification")
-                .setContentText("Hello, We got some deals for you")
+                .setContentText("Today's Rate = $pass_data")
                 .setSmallIcon(R.drawable.icon_blue)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources,R.drawable.icon_blue))
                 .setShowWhen(true)
-
 //        for (s in notifi_manager.notificationChannels) {
 //            notifi_manager.deleteNotificationChannel(s.id)
 //        }

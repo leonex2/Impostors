@@ -84,6 +84,7 @@ class Scheduler : JobService() {
                 val hasil = obj.getString("USD_IDR")
                 Log.w("Hasil",hasil)
                 jobFinished(p0, false)
+                pass_data = hasil
             }
             override fun onFailure(
                 statusCode: Int,
@@ -95,5 +96,8 @@ class Scheduler : JobService() {
             }
         }
         client.get(url, handler)
+    }
+    companion object{
+        var pass_data = "USD To IDR"
     }
 }

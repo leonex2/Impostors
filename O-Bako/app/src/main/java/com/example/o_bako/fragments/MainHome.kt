@@ -54,7 +54,6 @@ class MainHome : Fragment() {
     private var myAlarmManager: AlarmManager? = null
 
     var jobID = 111
-    var JobSchedulerId = 10
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
@@ -94,7 +93,7 @@ class MainHome : Fragment() {
 
         icon_notify.setOnClickListener{
             var myTimer = Calendar.getInstance()
-            myTimer.add(Calendar.SECOND,5)
+            myTimer.add(Calendar.SECOND,10)
             sendIntent = Intent(this.activity,MyAlarm::class.java)
             myPendingIntent = PendingIntent.getBroadcast(this.activity,565,sendIntent,0)
             myAlarmManager?.set(AlarmManager.RTC,myTimer.timeInMillis,myPendingIntent)
@@ -102,18 +101,6 @@ class MainHome : Fragment() {
         }
         return view
     }
-
-//    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-//    private fun startMyJob() {
-//        var serviceComponent = ComponentName(context!!,Konversi::class.java)
-//        var mJobInfo = JobInfo.Builder(JobSchedulerId,serviceComponent)
-//            .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-//            .setRequiresDeviceIdle(false)
-//            .setRequiresCharging(false)
-//            .setPeriodic(2*60*1000)
-//        var JobKonversi = context!!.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-//        JobKonversi.schedule((mJobInfo.build()))
-//    }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun newNotify() {
@@ -129,7 +116,6 @@ class MainHome : Fragment() {
 
     companion object {
         const val EXTRA_USERS = "12345"
-        const val EXTRA_KURS = "EXTRA_KURS"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
