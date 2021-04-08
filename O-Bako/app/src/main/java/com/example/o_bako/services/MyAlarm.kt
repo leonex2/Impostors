@@ -29,8 +29,8 @@ class MyAlarm : BroadcastReceiver() {
         notifi_channel.enableVibration(true)
 
         var notifi_builder = NotificationCompat.Builder(context, channel_id)
-                .setContentTitle("Quick Notification")
-                .setContentText("Testing")
+                .setContentTitle("Aye Capt'")
+                .setContentText("We got a Juicy DEAL Today. Leggo !")
                 .setSmallIcon(R.drawable.icon_blue)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources,R.drawable.icon_blue))

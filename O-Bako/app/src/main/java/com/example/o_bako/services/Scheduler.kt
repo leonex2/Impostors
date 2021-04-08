@@ -50,7 +50,7 @@ class Scheduler : JobService() {
         myNotifyChannel.enableVibration(true)
 
         var myNotifyBuild = NotificationCompat.Builder(this, channel_id)
-            .setContentTitle("Oho, Check it out")
+            .setContentTitle("Quick Notifications")
             .setContentText("Today's Rate : $get_curr")
             .setSmallIcon(R.drawable.icon_blue)
             .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
