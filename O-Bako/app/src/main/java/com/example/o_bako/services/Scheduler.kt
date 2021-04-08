@@ -5,16 +5,12 @@ import android.app.NotificationManager
 import android.app.job.JobParameters
 import android.app.job.JobService
 import android.content.Context
-import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.example.o_bako.EXTRA_IDR
-import com.example.o_bako.MainActivity
 import com.example.o_bako.R
-import com.example.o_bako.others.Konversi
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -28,7 +24,6 @@ class Scheduler : JobService() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartJob(params: JobParameters?): Boolean {
-        getNotified()
         getKonversi(params)
         Log.w("TAG", "Mulai")
         return true
@@ -40,7 +35,7 @@ class Scheduler : JobService() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getNotified() {
+    private fun getNotified(get_curr : String) {
         val notifi_id = 193
         val channel_id = "Promo Reminder"
         val name = "Promo"
@@ -56,7 +51,7 @@ class Scheduler : JobService() {
 
         var myNotifyBuild = NotificationCompat.Builder(this, channel_id)
             .setContentTitle("Oho, Check it out")
-            .setContentText("Hi, We got a Juicy HOT DEALS here. Check our shop NOW!")
+            .setContentText("Today's Rate : $get_curr")
             .setSmallIcon(R.drawable.icon_blue)
             .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -74,6 +69,7 @@ class Scheduler : JobService() {
         var url = "https://free.currconv.com/api/v7/convert?q=$kode&compact=ultra&apiKey=$key"
         val charSet = Charsets.UTF_8
         var handler = object : AsyncHttpResponseHandler() {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onSuccess(
                 statusCode: Int,
                 headers: Array<out Header>?,
@@ -81,10 +77,11 @@ class Scheduler : JobService() {
             ) {
                 var result = responseBody?.toString(charSet) ?: "Kosong"
                 val obj = JSONObject(result)
-                val hasil = obj.getString("USD_IDR")
-                Log.w("Hasil",hasil)
+                val get_curr = obj.getString("USD_IDR")
+                Log.w("Hasil",get_curr)
                 jobFinished(p0, false)
-                pass_data = hasil
+                getNotified(get_curr)
+
             }
             override fun onFailure(
                 statusCode: Int,
@@ -96,8 +93,5 @@ class Scheduler : JobService() {
             }
         }
         client.get(url, handler)
-    }
-    companion object{
-        var pass_data = "USD To IDR"
     }
 }
