@@ -9,6 +9,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.example.o_bako.Login
 import com.example.o_bako.MainActivity
 import com.example.o_bako.R
 import com.example.o_bako.services.MyAlarm
@@ -77,7 +79,7 @@ class MainHome : Fragment() {
         notificationManager = requireContext()
                 .getSystemService(Context.NOTIFICATION_SERVICE)
                 as NotificationManager
-
+//      HMM BINGUNG MO KEMANA WKWKW
         val intent = Intent(this.activity, MainActivity::class.java)
         val pendingIntent = TaskStackBuilder.create(context)
                 .addNextIntentWithParentStack(intent)
@@ -124,7 +126,7 @@ class MainHome : Fragment() {
                         .setSmallIcon(R.drawable.icon_blue)
                         .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
                         .setShowWhen(true)
-                        .addAction(R.drawable.icon8_cart, "Check it", pendingIntent);
+                        .setContentIntent(pendingIntent)
             }
             else {
                 builder = Notification.Builder(activity)
@@ -132,7 +134,8 @@ class MainHome : Fragment() {
                         .setContentText("See ya on Next Notification")
                         .setSmallIcon(R.drawable.icon_blue)
                         .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
-                        .addAction(R.drawable.icon8_cart, "Check it", pendingIntent);
+                        .setContentIntent(pendingIntent)
+//                        .addAction(R.drawable.icon8_cart, "Check it", pendingIntent);
             }
             notificationManager.notify(notification_channel1, builder.build())
         }
