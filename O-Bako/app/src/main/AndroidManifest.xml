@@ -52,7 +52,7 @@
         </activity>
 
         <receiver android:name=".others.NotificationReceiver" />
-
+z
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
     </application>

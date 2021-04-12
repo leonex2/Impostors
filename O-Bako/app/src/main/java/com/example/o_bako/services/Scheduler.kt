@@ -38,7 +38,7 @@ class Scheduler : JobService() {
     private fun getNotified(get_curr : String) {
         val notifi_id = 193
         val channel_id = "Promo Reminder"
-        val name = "Promo"
+        val name = "Scheduler"
         val importance = NotificationManager.IMPORTANCE_HIGH
 
         var myNotifyManager =

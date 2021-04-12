@@ -17,8 +17,8 @@ class MyAlarm : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
 
         val notifi_id = 191
-        val channel_id = "Alarm_Manager"
-        val name = "Reminder"
+        val channel_id = "Alarm Manager"
+        val name = "Alarm"
         val importance = NotificationManager.IMPORTANCE_HIGH
 
         var notifi_manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

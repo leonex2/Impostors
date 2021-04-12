@@ -6,6 +6,7 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,8 +16,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.example.o_bako.MainActivity
 import com.example.o_bako.R
-import com.example.o_bako.others.Konversi
 import com.example.o_bako.services.MyAlarm
 import com.example.o_bako.services.Scheduler
 import kotlinx.android.synthetic.main.activity_login.*
@@ -46,13 +47,20 @@ class MainHome : Fragment() {
         }
     }
 
-    lateinit var interfaceData: InterfaceData
+
+    val notification_channel1 = 1
+    val ch_id = "Notify"
+    val desc_channel = "Notifications"
+    var jobID = 111
 
     private var myPendingIntent: PendingIntent? = null
     private var sendIntent: Intent? = null
     private var myAlarmManager: AlarmManager? = null
 
-    var jobID = 111
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder: Notification.Builder
+    lateinit var interfaceData: InterfaceData
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
@@ -60,12 +68,21 @@ class MainHome : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         val view = inflater.inflate(R.layout.fragment_main_home, container, false)
-
-        myAlarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
         interfaceData = activity as InterfaceData
+
+        myAlarmManager = requireContext()
+                .getSystemService(Context.ALARM_SERVICE)
+                as AlarmManager
+        notificationManager = requireContext()
+                .getSystemService(Context.NOTIFICATION_SERVICE)
+                as NotificationManager
+
+        val intent = Intent(this.activity, MainActivity::class.java)
+        val pendingIntent = TaskStackBuilder.create(context)
+                .addNextIntentWithParentStack(intent)
+                .getPendingIntent(514,PendingIntent.FLAG_UPDATE_CURRENT)
+
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
         val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
         val food_product = view.findViewById<TextView>(R.id.food_opt)
@@ -90,15 +107,43 @@ class MainHome : Fragment() {
             interfaceData.Kirim(others_product.text.toString())
         }
 
-        icon_notify.setOnClickListener{
-            var myTimer = Calendar.getInstance()
-            myTimer.add(Calendar.SECOND,10)
-            sendIntent = Intent(this.activity,MyAlarm::class.java)
-            myPendingIntent = PendingIntent.getBroadcast(this.activity,565,sendIntent,0)
-            myAlarmManager?.set(AlarmManager.RTC,myTimer.timeInMillis,myPendingIntent)
+        icon_notify.setOnClickListener {
+            myAlarm()
             newNotify()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                notificationChannel = NotificationChannel(ch_id,
+                        desc_channel,
+                        NotificationManager.IMPORTANCE_HIGH)
+                notificationChannel.enableLights(true)
+                notificationChannel.setShowBadge(true)
+                notificationManager.createNotificationChannel(notificationChannel)
+
+                builder = Notification.Builder(activity, ch_id)
+                        .setContentTitle("Thank you for Enabling Notification")
+                        .setContentText("See ya on Next Notification")
+                        .setSmallIcon(R.drawable.icon_blue)
+                        .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
+                        .setShowWhen(true)
+                        .addAction(R.drawable.icon8_cart, "Check it", pendingIntent);
+            }
+            else {
+                builder = Notification.Builder(activity)
+                        .setContentTitle("Thank you for Enabling Notification")
+                        .setContentText("See ya on Next Notification")
+                        .setSmallIcon(R.drawable.icon_blue)
+                        .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
+                        .addAction(R.drawable.icon8_cart, "Check it", pendingIntent);
+            }
+            notificationManager.notify(notification_channel1, builder.build())
         }
         return view
+    }
+    private fun myAlarm(){
+        var myTimer = Calendar.getInstance()
+        myTimer.add(Calendar.SECOND,20)
+        sendIntent = Intent(this.activity,MyAlarm::class.java)
+        myPendingIntent = PendingIntent.getBroadcast(this.activity,565,sendIntent,0)
+        myAlarmManager?.set(AlarmManager.RTC,myTimer.timeInMillis,myPendingIntent)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -108,7 +153,7 @@ class MainHome : Fragment() {
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setRequiresDeviceIdle(false)
                 .setRequiresCharging(false)
-                .setMinimumLatency(15*1000)
+                .setMinimumLatency(30*1000)
         var jobSchedule = context!!.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
         jobSchedule.schedule(myInfo.build())
     }

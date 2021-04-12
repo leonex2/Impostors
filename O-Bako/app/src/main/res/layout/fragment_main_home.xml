@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.MainHome">
 
-
     <TextView
         android:id="@+id/login_name"
         android:layout_width="match_parent"
