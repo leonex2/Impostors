@@ -47,7 +47,6 @@ class MainHome : Fragment() {
     }
 
     lateinit var interfaceData: InterfaceData
-    private lateinit var Konversi: Konversi
 
     private var myPendingIntent: PendingIntent? = null
     private var sendIntent: Intent? = null

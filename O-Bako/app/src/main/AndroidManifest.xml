@@ -12,6 +12,7 @@
         android:roundIcon="@drawable/icon_blue"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
         <receiver
             android:name=".services.MyAlarm"
             android:enabled="true"

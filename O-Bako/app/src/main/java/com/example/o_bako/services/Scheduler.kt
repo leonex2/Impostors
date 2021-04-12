@@ -79,7 +79,7 @@ class Scheduler : JobService() {
                 val obj = JSONObject(result)
                 val get_curr = obj.getString("USD_IDR")
                 Log.w("Hasil",get_curr)
-                jobFinished(p0, false)
+                jobFinished(p0, true)
                 getNotified(get_curr)
 
             }

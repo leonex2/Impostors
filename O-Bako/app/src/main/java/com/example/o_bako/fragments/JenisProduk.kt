@@ -12,7 +12,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.Adapter
+import com.example.myapplication.Data
 import com.example.o_bako.R
+import kotlinx.android.synthetic.main.fragment_jenis_produk.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.io.IOException
@@ -44,49 +49,48 @@ class JenisProduk : Fragment() {
     }
 
     var nama_jenis_barang : String? = ""
+    private lateinit var myAdapter : Adapter
+    private var Stock : MutableList<Data> = mutableListOf(
+            Data(R.drawable.ic_launcher_background,"Bayam","Ini Bayam","0"),
+            Data(R.drawable.ic_launcher_background,"Kembang Kol","Ini Kembang Kol","0"),
+            Data(R.drawable.ic_launcher_background,"Kangkung","Ini Kangkung","0"),
+            Data(R.drawable.ic_launcher_background,"Sawi","Ini Sawi","2")
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_jenis_produk, container, false)
-
-
+//        var strUrl = "https://i.pinimg.com/originals/a1/c6/84/a1c684556890ce23c4811e32c2b882a7.png"
         val namaTxt = view.findViewById<TextView>(R.id.nama_product)
-        val viewImg = view.findViewById<ImageView>(R.id.imgView)
-        val viewImg2 = view.findViewById<ImageView>(R.id.imgView2)
-        val viewImg3 = view.findViewById<ImageView>(R.id.imgView3)
+        val itemList = view.findViewById<RecyclerView>(R.id.itemView)
 
         nama_jenis_barang = arguments?.getString("Pesan")
         namaTxt.text = nama_jenis_barang
 
-        var strUrl = "https://i.pinimg.com/originals/a1/c6/84/a1c684556890ce23c4811e32c2b882a7.png"
+        myAdapter = Adapter(Stock)
+        itemList.adapter = myAdapter
+        itemList.layoutManager = LinearLayoutManager(this.activity)
 
-        doAsync{
-            var myPhoto = processBitMap(strUrl)
-            uiThread{
-                viewImg.setImageBitmap(myPhoto)
-                viewImg2.setImageBitmap(myPhoto)
-                viewImg3.setImageBitmap(myPhoto)
-            }
-        }
         return view
     }
 //  Fungsi untuk melakukan pemprosesan URL untuk mendapatkan gambar
-    private fun processBitMap(url: String): Bitmap? {
-        return try{
-            var url = URL(url)
-            val connection : HttpURLConnection = url.openConnection() as HttpURLConnection
-            connection.doInput = true;
-            connection.connect()
-            val input: InputStream = connection.inputStream
-            val myBitMap = BitmapFactory.decodeStream(input)
-            myBitMap
-        }catch (e: IOException){
-            e.printStackTrace()
-            null
-        }
-    }
+//    private fun processBitMap(url: String): Bitmap? {
+//        return try{
+//            var url = URL(url)
+//            val connection : HttpURLConnection = url.openConnection() as HttpURLConnection
+//            connection.doInput = true;
+//            connection.connect()
+//            val input: InputStream = connection.inputStream
+//            val myBitMap = BitmapFactory.decodeStream(input)
+//            myBitMap
+//        }catch (e: IOException){
+//            e.printStackTrace()
+//            null
+//        }
+//    }
 
     companion object {
         /**
