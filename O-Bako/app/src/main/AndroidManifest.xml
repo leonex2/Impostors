@@ -50,7 +50,8 @@
             </intent-filter>
         </activity>
         <receiver android:name=".others.NotificationReceiver" />
-        <activity android:name=".Login"/>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Login" />
+        <activity android:name=".MainActivity"
+            android:parentActivityName=".Login"/>
     </application>
 </manifest>

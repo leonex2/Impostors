@@ -79,6 +79,7 @@ class MainHome : Fragment() {
         notificationManager = requireContext()
                 .getSystemService(Context.NOTIFICATION_SERVICE)
                 as NotificationManager
+
 //      HMM BINGUNG MO KEMANA WKWKW
         val intent = Intent(this.activity, MainActivity::class.java)
         val pendingIntent = TaskStackBuilder.create(context)
@@ -87,9 +88,6 @@ class MainHome : Fragment() {
 
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
         val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
-        val food_product = view.findViewById<TextView>(R.id.food_opt)
-        val drinks_product = view.findViewById<TextView>(R.id.drink_opt)
-        val others_product = view.findViewById<TextView>(R.id.others_opt)
         val icon_notify = view.findViewById<ImageView>(R.id.notify_icon)
 
         val myPesan = arguments?.getString(EXTRA_USERS)
@@ -98,15 +96,6 @@ class MainHome : Fragment() {
 
         veggies_product.setOnClickListener {
             interfaceData.Kirim(veggies_product.text.toString())
-        }
-        food_product.setOnClickListener {
-            interfaceData.Kirim(food_product.text.toString())
-        }
-        drinks_product.setOnClickListener {
-            interfaceData.Kirim(drinks_product.text.toString())
-        }
-        others_product.setOnClickListener {
-            interfaceData.Kirim(others_product.text.toString())
         }
 
         icon_notify.setOnClickListener {
@@ -135,7 +124,6 @@ class MainHome : Fragment() {
                         .setSmallIcon(R.drawable.icon_blue)
                         .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
                         .setContentIntent(pendingIntent)
-//                        .addAction(R.drawable.icon8_cart, "Check it", pendingIntent);
             }
             notificationManager.notify(notification_channel1, builder.build())
         }
