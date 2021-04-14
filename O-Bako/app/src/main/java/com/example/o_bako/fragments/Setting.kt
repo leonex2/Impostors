@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.example.o_bako.R
-import kotlinx.android.synthetic.main.fragment_setting.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

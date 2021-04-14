@@ -1,6 +1,5 @@
 package com.example.o_bako
 
-
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build

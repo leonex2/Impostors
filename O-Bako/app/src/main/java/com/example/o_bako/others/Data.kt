@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.o_bako
 
 data class Data(var Image : Int,
                 var Nama : String,

@@ -2,12 +2,9 @@ package com.example.o_bako.others
 
 import android.app.job.JobParameters
 import android.app.job.JobService
-import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.example.o_bako.EXTRA_IDR
-import com.example.o_bako.services.MyAlarm
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header

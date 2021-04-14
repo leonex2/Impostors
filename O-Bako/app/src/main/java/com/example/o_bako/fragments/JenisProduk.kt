@@ -1,29 +1,16 @@
 package com.example.o_bako.fragments
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.Image
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Adapter
-import com.example.myapplication.Data
+import com.example.o_bako.Data
+import com.example.o_bako.JenisBarangRecycleAdapter
 import com.example.o_bako.R
-import kotlinx.android.synthetic.main.fragment_jenis_produk.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
-import java.io.IOException
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,7 +36,7 @@ class JenisProduk : Fragment() {
     }
 
     var nama_jenis_barang : String? = ""
-    private lateinit var myAdapter : Adapter
+    private lateinit var myJenisBarangRecycleAdapter : JenisBarangRecycleAdapter
     private var Stock : MutableList<Data> = mutableListOf(
             Data(R.drawable.ic_launcher_background,"Bayam","Ini Bayam","0"),
             Data(R.drawable.ic_launcher_background,"Kembang Kol","Ini Kembang Kol","0"),
@@ -70,8 +57,8 @@ class JenisProduk : Fragment() {
         nama_jenis_barang = arguments?.getString("Pesan")
         namaTxt.text = nama_jenis_barang
 
-        myAdapter = Adapter(Stock)
-        itemList.adapter = myAdapter
+        myJenisBarangRecycleAdapter = JenisBarangRecycleAdapter(Stock)
+        itemList.adapter = myJenisBarangRecycleAdapter
         itemList.layoutManager = LinearLayoutManager(this.activity)
 
         return view

@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.o_bako
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.o_bako.R
 
-class Adapter (DataBarang : MutableList<Data>) : RecyclerView.Adapter<Adapter.Holder>(){
+class JenisBarangRecycleAdapter (DataBarang : MutableList<Data>) : RecyclerView.Adapter<JenisBarangRecycleAdapter.Holder>(){
     private val dataStock = DataBarang
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val ImageBarang = itemView.findViewById<ImageView>(R.id.imgBarang)
