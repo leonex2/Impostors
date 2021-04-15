@@ -48,7 +48,6 @@ class InviteFriend : AppCompatActivity(),
                         ContactList(
                                 nama = data.getString(data.getColumnIndex(Display_Name)),
                                 noHP = data.getString(data.getColumnIndex(Display_Number)),
-                                status = false
                         )
                 )
                 data.moveToNext()

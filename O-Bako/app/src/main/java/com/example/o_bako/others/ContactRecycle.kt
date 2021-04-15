@@ -17,7 +17,6 @@ class ContactRecycle (private val myContact : List<ContactList>) : RecyclerView.
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bindContact(myContact[position])
-        holder.statusDisplay.isChecked = false
     }
 
     override fun getItemCount(): Int = myContact.size
@@ -25,11 +24,10 @@ class ContactRecycle (private val myContact : List<ContactList>) : RecyclerView.
 class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
     val namaDisplay = itemView.display_name
     val numberDisplay = itemView.display_number
-    val statusDisplay = itemView.checkList
+    val inviteButton = itemView.invite_teman
 
     fun bindContact(temp : ContactList) {
         namaDisplay.text = "${namaDisplay.text} : ${temp.nama}"
         numberDisplay.text = "${numberDisplay.text} : ${temp.noHP}"
-        statusDisplay.isChecked = false
     }
 }

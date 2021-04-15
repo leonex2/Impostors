@@ -10,7 +10,7 @@
         android:id="@+id/invite_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Invite Friend"
+        android:text="Invite Friends"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,17 +28,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/invite_txt"
         app:layout_constraintVertical_bias="0.02" />
-
-    <Button
-        android:id="@+id/btn_ajak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Invite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewContact"
-        app:layout_constraintVertical_bias="0.077" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
