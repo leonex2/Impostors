@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.example.o_bako.InviteFriend
 import com.example.o_bako.MainActivity
 import com.example.o_bako.R
 import com.example.o_bako.services.MyAlarm
@@ -69,6 +70,7 @@ class MainHome : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main_home, container, false)
+
         interfaceData = activity as InterfaceData
 
         myAlarmManager = requireContext()
@@ -87,6 +89,7 @@ class MainHome : Fragment() {
         val loginTxt = view.findViewById<TextView>(R.id.login_name)
         val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
         val icon_notify = view.findViewById<ImageView>(R.id.notify_icon)
+        val icon_add = view.findViewById<ImageView>(R.id.invite_icon)
 
         val myPesan = arguments?.getString(EXTRA_USERS)
 
@@ -94,6 +97,11 @@ class MainHome : Fragment() {
 
         veggies_product.setOnClickListener {
             interfaceData.Kirim(veggies_product.text.toString())
+        }
+
+        icon_add.setOnClickListener {
+            var intentToAdd = Intent(this.activity,InviteFriend::class.java)
+            startActivity(intentToAdd)
         }
 
         icon_notify.setOnClickListener {
