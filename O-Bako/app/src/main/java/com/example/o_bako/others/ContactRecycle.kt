@@ -17,6 +17,7 @@ class ContactRecycle (private val myContact : List<ContactList>) : RecyclerView.
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bindContact(myContact[position])
+        holder.statusDisplay.isChecked = false
     }
 
     override fun getItemCount(): Int = myContact.size

@@ -4,6 +4,8 @@ import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.View
+import android.widget.Toast
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
@@ -11,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.o_bako.others.ContactList
 import com.example.o_bako.others.ContactRecycle
 import kotlinx.android.synthetic.main.activity_invite_friend.*
+import kotlinx.android.synthetic.main.fragment_jenis_produk.*
+import kotlinx.android.synthetic.main.recycle_contact_list.view.*
 
 class InviteFriend : AppCompatActivity(),
         LoaderManager.LoaderCallbacks<Cursor>{
@@ -22,6 +26,7 @@ class InviteFriend : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invite_friend)
+
         LoaderManager.getInstance(this).initLoader(1, null, this)
     }
 
@@ -43,20 +48,20 @@ class InviteFriend : AppCompatActivity(),
                         ContactList(
                                 nama = data.getString(data.getColumnIndex(Display_Name)),
                                 noHP = data.getString(data.getColumnIndex(Display_Number)),
-                                status = true
+                                status = false
                         )
                 )
                 data.moveToNext()
             }
         }
         val contactAdapter = ContactRecycle(myFriendList)
-        viewItem.apply {
+        viewContact.apply {
             layoutManager = LinearLayoutManager(this@InviteFriend)
             adapter = contactAdapter
         }
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        viewItem.adapter?.notifyDataSetChanged()
+        viewContact.adapter?.notifyDataSetChanged()
     }
 }
