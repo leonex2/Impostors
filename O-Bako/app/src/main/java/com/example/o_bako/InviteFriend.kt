@@ -27,7 +27,10 @@ class InviteFriend : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invite_friend)
 
-        LoaderManager.getInstance(this).initLoader(1, null, this)
+        LoaderManager.getInstance(this)
+                .initLoader(1,
+                        null,
+                        this)
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {

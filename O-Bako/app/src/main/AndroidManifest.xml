@@ -13,7 +13,6 @@
         android:roundIcon="@drawable/icon_blue"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".InviteFriend"></activity>
 
         <receiver
             android:name=".services.MyAlarm"
@@ -43,6 +42,7 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
+        <activity android:name=".InviteFriend"></activity>
         <activity android:name=".SignUp" />
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -57,7 +57,7 @@
         <activity android:name=".Login" />
         <activity
             android:name=".MainActivity"
-            android:parentActivityName=".Login" />
+            android:parentActivityName=".SplashScreen" />
     </application>
 
 </manifest>
