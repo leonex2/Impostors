@@ -105,12 +105,12 @@ class MainHome : Fragment() {
         }
 
         icon_notify.setOnClickListener {
-            myAlarm()
-            newNotify()
+//            myAlarm()
+//            newNotify()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 notificationChannel = NotificationChannel(ch_id,
                         desc_channel,
-                        NotificationManager.IMPORTANCE_HIGH)
+                        NotificationManager.IMPORTANCE_LOW)
                 notificationChannel.enableLights(true)
                 notificationChannel.setShowBadge(true)
                 notificationManager.createNotificationChannel(notificationChannel)
@@ -121,6 +121,7 @@ class MainHome : Fragment() {
                         .setSmallIcon(R.drawable.icon_blue)
                         .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.icon_blue))
                         .setShowWhen(true)
+                        .setAutoCancel(true)
                         .setContentIntent(pendingIntent)
             }
             else {

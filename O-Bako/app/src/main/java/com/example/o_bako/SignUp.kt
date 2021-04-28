@@ -19,7 +19,6 @@ class SignUp : AppCompatActivity() {
                 var user = reg_username.text.toString()
                 var user_pw = reg_passwd.text.toString()
                 var user_email = reg_email.text.toString()
-                var user_phone = reg_phone.text.toString()
                 var intent = Intent()
                 if (user.isEmpty() && user_pw.isEmpty()) {
                     Toast.makeText(this, "Silahkan isi data dengan benar !", Toast.LENGTH_SHORT).show()

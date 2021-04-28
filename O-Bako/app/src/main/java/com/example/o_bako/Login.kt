@@ -28,6 +28,8 @@ class Login : AppCompatActivity() {
                 val intentToMainHome = Intent(this,MainActivity::class.java)
                 var my_Login = input_login.text.toString()
                 intentToMainHome.putExtra(EXTRA_USERNAME,my_Login)
+                input_login.setText("")
+                input_password.setText("")
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
                 startActivity(intentToMainHome)
             }
