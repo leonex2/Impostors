@@ -15,7 +15,6 @@ class LoginTest{
     @Rule
     @JvmField
     var activityTestRule = ActivityTestRule(Login::class.java)
-
     @Test
     fun TestLogin(){
         onView(withId(R.id.input_login)).perform(typeText(""))
