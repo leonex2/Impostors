@@ -47,8 +47,7 @@ class MainHome : Fragment() {
             param1 = it.getString(ARG_PARAM1)
         }
     }
-
-
+    
     val notification_channel1 = 1
     val ch_id = "Notify"
     val desc_channel = "Notifications"

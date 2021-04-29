@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.o_bako.Data
 import com.example.o_bako.JenisBarangRecycleAdapter
 import com.example.o_bako.R
+import com.example.o_bako.model.MainModel
+import com.example.o_bako.model.ModelPresenter
+import com.example.o_bako.model.ModelVInterface
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,7 +25,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [JenisProduk.newInstance] factory method to
  * create an instance of this fragment.
  */
-class JenisProduk : Fragment() {
+class JenisProduk : Fragment(), ModelVInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,12 +40,8 @@ class JenisProduk : Fragment() {
 
     var nama_jenis_barang : String? = ""
     private lateinit var myJenisBarangRecycleAdapter : JenisBarangRecycleAdapter
-    private var Stock : MutableList<Data> = mutableListOf(
-            Data(R.drawable.ic_launcher_background,"Bayam","Ini Bayam","0"),
-            Data(R.drawable.ic_launcher_background,"Kembang Kol","Ini Kembang Kol","0"),
-            Data(R.drawable.ic_launcher_background,"Kangkung","Ini Kangkung","0"),
-            Data(R.drawable.ic_launcher_background,"Sawi","Ini Sawi","2")
-    )
+    private var Stock : MutableList<Data> = mutableListOf()
+    var myPresenter = ModelPresenter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,9 +56,12 @@ class JenisProduk : Fragment() {
         nama_jenis_barang = arguments?.getString("Pesan")
         namaTxt.text = nama_jenis_barang
 
+        myPresenter.initRecycle()
+
         myJenisBarangRecycleAdapter = JenisBarangRecycleAdapter(Stock)
         itemList.adapter = myJenisBarangRecycleAdapter
         itemList.layoutManager = LinearLayoutManager(this.activity)
+
 
         return view
     }
@@ -98,5 +100,12 @@ class JenisProduk : Fragment() {
                 }
             }
     }
-    
+
+    override fun addList(model: MainModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun initList(model: MainModel) {
+        Stock = model.item
+    }
 }

@@ -20,17 +20,27 @@
         android:orientation="vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
+
         <TextView
             android:id="@+id/namaBarang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:text="Barang" />
+
         <TextView
             android:id="@+id/deskripsiBarang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ini Deskripsi Barang"
-            android:layout_marginTop="10dp"/>
+            android:padding="5dp"
+            android:text="Ini Deskripsi Barang" />
+
+        <TextView
+            android:id="@+id/harga_barang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Harga Barang" />
     </LinearLayout>
     <Button
         android:id="@+id/minus"

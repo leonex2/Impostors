@@ -15,6 +15,7 @@ class JenisBarangRecycleAdapter (DataBarang : MutableList<Data>) : RecyclerView.
         val NamaBarang = itemView.findViewById<TextView>(R.id.namaBarang)
         val DeskripsiBarang = itemView.findViewById<TextView>(R.id.deskripsiBarang)
         val Quantity = itemView.findViewById<TextView>(R.id.quantity)
+        val Cost = itemView.findViewById<TextView>(R.id.harga_barang)
         val Plus = itemView.findViewById<Button>(R.id.plus)
         val Minus = itemView.findViewById<Button>(R.id.minus)
     }
@@ -30,6 +31,7 @@ class JenisBarangRecycleAdapter (DataBarang : MutableList<Data>) : RecyclerView.
         holder.NamaBarang.setText(dataStock.get(position).Nama)
         holder.DeskripsiBarang.setText(dataStock.get(position).Deskripsi)
         holder.Quantity.setText(dataStock.get(position).Qty)
+        holder.Cost.setText(dataStock.get(position).Harga_Barang)
     }
 
     override fun getItemCount(): Int = dataStock.size
