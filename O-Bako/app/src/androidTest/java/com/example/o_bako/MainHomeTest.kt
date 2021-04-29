@@ -1,12 +1,15 @@
 package com.example.o_bako
 
-import androidx.test.espresso.Espresso
+import android.content.pm.ActivityInfo
+import androidx.fragment.app.FragmentActivity
 import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import com.example.o_bako.fragments.MainHome
+import kotlinx.android.synthetic.main.item_view_recycle.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,7 +18,7 @@ import org.junit.runner.RunWith
 class MainHomeTest {
     @Rule
     @JvmField
-    var activityTestRule = ActivityTestRule(MainActivity::class.java)
+    var mainTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun TestNotifi() {
@@ -25,6 +28,7 @@ class MainHomeTest {
     @Test
     fun TestPilihan() {
         onView(withId(R.id.veggies_opt)).perform(ViewActions.click())
+        onView(withId(R.id.nama_product)).check(matches(withText("Veggies")))
     }
 
     @Test
@@ -41,10 +45,5 @@ class MainHomeTest {
         onView(withId(R.id.edit_new_alamat)).perform(ViewActions.typeText("Jl. Thamrin No. 89"))
         closeSoftKeyboard()
         onView(withId(R.id.btn_edit_submit)).perform(ViewActions.click())
-    }
-    @Test
-    fun TestCheckFriend(){
-        onView(withId(R.id.invite_icon)).perform(ViewActions.click())
-        pressBack()
     }
 }
