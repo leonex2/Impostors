@@ -1,6 +1,5 @@
 package com.example.o_bako.fragments
 
-import android.annotation.TargetApi
 import android.app.*
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
@@ -52,6 +51,7 @@ class MainHome : Fragment() {
     val ch_id = "Notify"
     val desc_channel = "Notifications"
     var jobID = 111
+    var status_sound = true
     private var myIntentService : Intent? = null
     private var myPendingIntent: PendingIntent? = null
     private var sendIntent: Intent? = null
@@ -93,6 +93,7 @@ class MainHome : Fragment() {
 
         val myPesan = arguments?.getString(EXTRA_USERS)
 
+        icon_sound.setImageResource(R.drawable.flaticon_mute)
         loginTxt.text = "Login as, $myPesan"
 
         veggies_product.setOnClickListener {
@@ -136,8 +137,18 @@ class MainHome : Fragment() {
         }
 
         icon_sound.setOnClickListener{
+            if(status_sound){
+                status_sound = false
+                icon_sound.setImageResource(R.drawable.flaticon_unmute)
                 myIntentService?.setAction(ACTION_PLAY)
-                requireActivity().startService(Intent(context, myIntentService::class.java))
+                requireActivity().startService(Intent(myIntentService))
+            }
+            else{
+                status_sound = true
+                icon_sound.setImageResource(R.drawable.flaticon_mute)
+                myIntentService?.setAction(ACTION_RESUME)
+                requireActivity().startService(myIntentService)
+            }
         }
         return view
     }
@@ -188,16 +199,14 @@ class MainHome : Fragment() {
     }
     override fun onStart() {
         super.onStart()
-
         if(myIntentService==null){
-            myIntentService = Intent(this, MyMPService::class.java)
+            myIntentService = Intent(this.activity, MyMPService::class.java)
             myIntentService?.setAction(ACTION_CREATE)
-            requireActivity().startService(Intent(context, myIntentService::class.java))
+            requireActivity().startService(myIntentService)
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
-        requireActivity().stopService(Intent(context, myIntentService::class.java))
+        requireActivity().stopService(Intent(myIntentService))
     }
 }

@@ -16,23 +16,17 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 
-private var sp : SoundPool? = null
-private var soundID = 0
+private var login_soundpool : SoundPool? = null
+private var login_soundID = 0
 class Login : AppCompatActivity() {
-    private val TAG = Login::class.simpleName
-    private var tvBatteryLevel: TextView? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        tvBatteryLevel = findViewById(R.id.battery_lvl)
-        val intentFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
-        registerReceiver(batteryBroadcastReceiver, intentFilter)
         btn_login.setOnClickListener {
             if(input_login.text.toString() != "" && input_password.text.toString() != ""){
-                if(soundID!=0) {
-                    sp?.play(soundID, .99f, .99f, 1, 0, .99f)
+                if(login_soundID!=0) {
+                    login_soundpool?.play(login_soundID, .99f, .99f, 1, 0, .99f)
                 }
                 val intentToMainHome = Intent(this,MainActivity::class.java)
                 var my_Login = input_login.text.toString()
@@ -51,23 +45,6 @@ class Login : AppCompatActivity() {
             startActivityForResult(intentSignup, EXTRA_REQUEST_CODE)
         }
     }
-
-    private val batteryBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver(){
-        override fun onReceive(context: Context?, intent: Intent?){
-            if(intent?.action == "android.intent.action.BATTERY_CHANGED") {
-                val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-                Log.d(TAG, "onReceive: battery level $level")
-                tvBatteryLevel?.post {
-                    tvBatteryLevel?.text = level.toString().plus(" ").plus("%")
-                }
-            }
-        }
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(batteryBroadcastReceiver)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == EXTRA_REQUEST_CODE){
@@ -89,7 +66,7 @@ class Login : AppCompatActivity() {
         else
             createOldSoundPool()
 
-        sp?.setOnLoadCompleteListener{soundPool, id, status ->
+        login_soundpool?.setOnLoadCompleteListener{soundPool, id, status ->
             if(status != 0)
                 Toast.makeText(this,"Gagal Load",Toast.LENGTH_SHORT)
                     .show()
@@ -97,24 +74,24 @@ class Login : AppCompatActivity() {
                 Toast.makeText(this,"Load Sukses",Toast.LENGTH_SHORT)
                     .show()
         }
-        soundID = sp?.load(this, R.raw.alert,1) ?: 0
+        login_soundID = login_soundpool?.load(this, R.raw.mixkit_retro_game,1) ?: 0
 
     }
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun createNewSoundPool() {
-        sp = SoundPool.Builder()
+        login_soundpool = SoundPool.Builder()
             .setMaxStreams(15)
             .build()
     }
     @Suppress("DEPRECATION")
     private fun createOldSoundPool() {
-        sp = SoundPool(15, AudioManager.STREAM_MUSIC,0)
+        login_soundpool = SoundPool(15, AudioManager.STREAM_MUSIC,0)
     }
 
     override fun onStop() {
         super.onStop()
-        sp?.release()
-        sp = null
+        login_soundpool?.release()
+        login_soundpool = null
 
     }
 }

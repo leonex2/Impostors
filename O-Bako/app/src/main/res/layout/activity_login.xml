@@ -112,17 +112,4 @@
         tools:layout_editor_absoluteX="217dp"
         tools:layout_editor_absoluteY="550dp" />
 
-    <TextView
-        android:id="@+id/battery_lvl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

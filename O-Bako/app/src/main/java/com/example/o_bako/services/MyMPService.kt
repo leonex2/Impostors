@@ -10,6 +10,7 @@ import com.example.o_bako.R
 const val ACTION_PLAY = "PLAY"
 const val ACTION_STOP = "STOP"
 const val ACTION_CREATE = "CREATE"
+const val ACTION_RESUME = "RESUME"
 
 class MyMPService : Service(),
     MediaPlayer.OnPreparedListener,
@@ -46,6 +47,7 @@ class MyMPService : Service(),
                         }
                     }
                 }
+                ACTION_RESUME -> myMediaPlayer?.pause()
                 ACTION_STOP -> myMediaPlayer?.stop()
             }
         }
