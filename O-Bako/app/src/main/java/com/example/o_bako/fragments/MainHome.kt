@@ -1,5 +1,6 @@
 package com.example.o_bako.fragments
 
+import android.annotation.TargetApi
 import android.app.*
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
@@ -19,8 +20,7 @@ import androidx.fragment.app.Fragment
 import com.example.o_bako.InviteFriend
 import com.example.o_bako.MainActivity
 import com.example.o_bako.R
-import com.example.o_bako.services.MyAlarm
-import com.example.o_bako.services.Scheduler
+import com.example.o_bako.services.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_home.*
@@ -52,7 +52,7 @@ class MainHome : Fragment() {
     val ch_id = "Notify"
     val desc_channel = "Notifications"
     var jobID = 111
-
+    private var myIntentService : Intent? = null
     private var myPendingIntent: PendingIntent? = null
     private var sendIntent: Intent? = null
     private var myAlarmManager: AlarmManager? = null
@@ -89,6 +89,7 @@ class MainHome : Fragment() {
         val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
         val icon_notify = view.findViewById<ImageView>(R.id.notify_icon)
         val icon_add = view.findViewById<ImageView>(R.id.invite_icon)
+        val icon_sound = view.findViewById<ImageView>(R.id.sound_icon)
 
         val myPesan = arguments?.getString(EXTRA_USERS)
 
@@ -133,8 +134,14 @@ class MainHome : Fragment() {
             }
             notificationManager.notify(notification_channel1, builder.build())
         }
+
+        icon_sound.setOnClickListener{
+                myIntentService?.setAction(ACTION_PLAY)
+                requireActivity().startService(Intent(context, myIntentService::class.java))
+        }
         return view
     }
+
     private fun myAlarm(){
         var myTimer = Calendar.getInstance()
         myTimer.add(Calendar.SECOND,20)
@@ -178,5 +185,19 @@ class MainHome : Fragment() {
                     putString(EXTRA_USERS, param1)
                 }
             }
+    }
+    override fun onStart() {
+        super.onStart()
+
+        if(myIntentService==null){
+            myIntentService = Intent(this, MyMPService::class.java)
+            myIntentService?.setAction(ACTION_CREATE)
+            requireActivity().startService(Intent(context, myIntentService::class.java))
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().stopService(Intent(context, myIntentService::class.java))
     }
 }

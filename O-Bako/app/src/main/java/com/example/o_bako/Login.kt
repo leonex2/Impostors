@@ -1,10 +1,14 @@
 package com.example.o_bako
 
+import android.annotation.TargetApi
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.media.AudioManager
+import android.media.SoundPool
 import android.os.BatteryManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +16,8 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 
+private var sp : SoundPool? = null
+private var soundID = 0
 class Login : AppCompatActivity() {
     private val TAG = Login::class.simpleName
     private var tvBatteryLevel: TextView? = null
@@ -25,6 +31,9 @@ class Login : AppCompatActivity() {
         registerReceiver(batteryBroadcastReceiver, intentFilter)
         btn_login.setOnClickListener {
             if(input_login.text.toString() != "" && input_password.text.toString() != ""){
+                if(soundID!=0) {
+                    sp?.play(soundID, .99f, .99f, 1, 0, .99f)
+                }
                 val intentToMainHome = Intent(this,MainActivity::class.java)
                 var my_Login = input_login.text.toString()
                 intentToMainHome.putExtra(EXTRA_USERNAME,my_Login)
@@ -71,5 +80,41 @@ class Login : AppCompatActivity() {
                 input_password.setHint("Password")
             }
         }
+    }
+
+    override fun onStart(){
+        super.onStart()
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            createNewSoundPool()
+        else
+            createOldSoundPool()
+
+        sp?.setOnLoadCompleteListener{soundPool, id, status ->
+            if(status != 0)
+                Toast.makeText(this,"Gagal Load",Toast.LENGTH_SHORT)
+                    .show()
+            else
+                Toast.makeText(this,"Load Sukses",Toast.LENGTH_SHORT)
+                    .show()
+        }
+        soundID = sp?.load(this, R.raw.alert,1) ?: 0
+
+    }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun createNewSoundPool() {
+        sp = SoundPool.Builder()
+            .setMaxStreams(15)
+            .build()
+    }
+    @Suppress("DEPRECATION")
+    private fun createOldSoundPool() {
+        sp = SoundPool(15, AudioManager.STREAM_MUSIC,0)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        sp?.release()
+        sp = null
+
     }
 }

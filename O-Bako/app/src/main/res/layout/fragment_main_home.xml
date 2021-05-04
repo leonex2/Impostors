@@ -52,6 +52,21 @@
         app:tint="@color/white" />
 
     <ImageView
+        android:id="@+id/sound_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:src="@drawable/icons8_notifications"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toEndOf="@+id/invite_icon"
+        app:layout_constraintTop_toTopOf="@+id/login_name"
+        app:layout_constraintVertical_bias="0.0"
+        app:tint="@color/white" />
+
+    <ImageView
         android:id="@+id/banner"
         android:layout_width="410dp"
         android:layout_height="wrap_content"
