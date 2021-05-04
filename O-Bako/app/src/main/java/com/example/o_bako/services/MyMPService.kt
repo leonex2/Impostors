@@ -35,7 +35,7 @@ class MyMPService : Service(),
                 ACTION_CREATE -> init()
                 ACTION_PLAY -> {
                     if (!myMediaPlayer!!.isPlaying) {
-                        val assetFileDescriptor = this.resources.openRawResourceFd(R.raw.lagu)
+                        val assetFileDescriptor = this.resources.openRawResourceFd(R.raw.music)
                         myMediaPlayer?.run {
                             reset()
                             setDataSource(
