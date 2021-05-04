@@ -22,13 +22,10 @@ class SplashScreen : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         Handler().postDelayed({
-            if(splash_soundID!=0) {
-                splash_soundpool?.play(splash_soundID, .99f, .99f, 1, 0, .99f)
-            }
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
-        }, 1800)
+        }, 5000)
     }
 
     override fun onStart(){
@@ -40,14 +37,12 @@ class SplashScreen : AppCompatActivity() {
 
         splash_soundpool?.setOnLoadCompleteListener{soundPool, id, status ->
             if(status != 0)
-                Toast.makeText(this,"Gagal Load", Toast.LENGTH_SHORT)
-                        .show()
+                Toast.makeText(this,"Gagal Load", Toast.LENGTH_SHORT).show()
             else
-                Toast.makeText(this,"Load Sukses", Toast.LENGTH_SHORT)
-                        .show()
+                Toast.makeText(this,"Load Sukses", Toast.LENGTH_SHORT).show()
+                splash_soundpool?.play(splash_soundID, .5f, .5f, 1, 0, 2f)
         }
-        splash_soundID = splash_soundpool?.load(this, R.raw.mixkit_arcade_retro,1) ?: 0
-
+        splash_soundID = splash_soundpool?.load(this, R.raw.mixkit_intro_transition,1) ?: 0
     }
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun createNewSoundPool() {

@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_blue"
@@ -13,10 +12,11 @@
         android:roundIcon="@drawable/icon_blue"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
         <service
             android:name=".services.MyMPService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
 
         <receiver
             android:name=".services.MyAlarm"
