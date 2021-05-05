@@ -11,6 +11,7 @@ const val ACTION_PLAY = "PLAY"
 const val ACTION_STOP = "STOP"
 const val ACTION_CREATE = "CREATE"
 const val ACTION_RESUME = "RESUME"
+const val ACTION_PAUSE = "PAUSE"
 
 class MyMPService : Service(),
     MediaPlayer.OnPreparedListener,
@@ -47,7 +48,8 @@ class MyMPService : Service(),
                         }
                     }
                 }
-                ACTION_RESUME -> myMediaPlayer?.pause()
+                ACTION_RESUME -> myMediaPlayer?.start()
+                ACTION_PAUSE -> myMediaPlayer?.pause()
                 ACTION_STOP -> myMediaPlayer?.stop()
             }
         }

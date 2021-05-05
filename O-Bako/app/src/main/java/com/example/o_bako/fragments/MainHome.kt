@@ -51,7 +51,6 @@ class MainHome : Fragment() {
     val ch_id = "Notify"
     val desc_channel = "Notifications"
     var jobID = 111
-    var status_sound = true
     private var myIntentService : Intent? = null
     private var myPendingIntent: PendingIntent? = null
     private var sendIntent: Intent? = null
@@ -89,11 +88,10 @@ class MainHome : Fragment() {
         val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
         val icon_notify = view.findViewById<ImageView>(R.id.notify_icon)
         val icon_add = view.findViewById<ImageView>(R.id.invite_icon)
-        val icon_sound = view.findViewById<ImageView>(R.id.sound_icon)
+        val icon_stop = view.findViewById<ImageView>(R.id.stop_song)
+        val music_player = view.findViewById<TextView>(R.id.play_song)
 
         val myPesan = arguments?.getString(EXTRA_USERS)
-
-        icon_sound.setImageResource(R.drawable.flaticon_mute)
         loginTxt.text = "Login as, $myPesan"
 
         veggies_product.setOnClickListener {
@@ -135,21 +133,31 @@ class MainHome : Fragment() {
             }
             notificationManager.notify(notification_channel1, builder.build())
         }
-
-        icon_sound.setOnClickListener{
-            if(status_sound){
-                status_sound = false
-                icon_sound.setImageResource(R.drawable.flaticon_unmute)
+        //Media Player
+        music_player.setOnClickListener{
+            if(music_player.text == "Play"){
+                music_player.text = "Pause"
                 myIntentService?.setAction(ACTION_PLAY)
-                requireActivity().startService(Intent(myIntentService))
+                getActivity()?.startService(Intent(myIntentService))
             }
-            else{
-                status_sound = true
-                icon_sound.setImageResource(R.drawable.flaticon_mute)
+            else if (music_player.text == "Pause"){
+                music_player.text = "Resume"
+                myIntentService?.setAction(ACTION_PAUSE)
+                getActivity()?.startService(myIntentService)
+            }
+            else if (music_player.text == "Resume"){
+                music_player.text = "Pause"
                 myIntentService?.setAction(ACTION_RESUME)
-                requireActivity().startService(myIntentService)
+                getActivity()?.startService(myIntentService)
             }
         }
+
+        icon_stop.setOnClickListener {
+            music_player.text = "Play"
+            myIntentService?.setAction(ACTION_STOP)
+            getActivity()?.startService(Intent(myIntentService))
+        }
+
         return view
     }
 

@@ -51,8 +51,25 @@
         app:layout_constraintVertical_bias="0.0"
         app:tint="@color/white" />
 
+    <TextView
+        android:id="@+id/play_song"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:text="Play"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toEndOf="@+id/invite_icon"
+        app:layout_constraintTop_toTopOf="@+id/login_name"
+        app:layout_constraintVertical_bias="0.0"/>
+
     <ImageView
-        android:id="@+id/sound_icon"
+        android:id="@+id/stop_song"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="10dp"
@@ -60,11 +77,11 @@
         android:src="@drawable/flaticon_mute"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toEndOf="@+id/invite_icon"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintStart_toEndOf="@+id/play_song"
         app:layout_constraintTop_toTopOf="@+id/login_name"
         app:layout_constraintVertical_bias="0.0"
-        app:tint="@color/white" />
+        app:tint="@color/white"/>
 
     <ImageView
         android:id="@+id/banner"
