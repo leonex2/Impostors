@@ -34,22 +34,19 @@ class SplashScreen : AppCompatActivity() {
             createNewSoundPool()
         else
             createOldSoundPool()
-
         splash_soundpool?.setOnLoadCompleteListener{soundPool, id, status ->
-            if(status != 0)
-                Toast.makeText(this,"Gagal Load", Toast.LENGTH_SHORT).show()
-            else
-                Toast.makeText(this,"Load Sukses", Toast.LENGTH_SHORT).show()
-                splash_soundpool?.play(splash_soundID, .5f, .5f, 1, 0, 2f)
+            splash_soundpool?.play(splash_soundID, .5f, .5f, 1, 0, 2f)
         }
         splash_soundID = splash_soundpool?.load(this, R.raw.mixkit_intro_transition,1) ?: 0
     }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun createNewSoundPool() {
         splash_soundpool = SoundPool.Builder()
                 .setMaxStreams(15)
                 .build()
     }
+
     @Suppress("DEPRECATION")
     private fun createOldSoundPool() {
         splash_soundpool = SoundPool(15, AudioManager.STREAM_MUSIC,0)
@@ -59,6 +56,5 @@ class SplashScreen : AppCompatActivity() {
         super.onStop()
         splash_soundpool?.release()
         splash_soundpool = null
-
     }
 }

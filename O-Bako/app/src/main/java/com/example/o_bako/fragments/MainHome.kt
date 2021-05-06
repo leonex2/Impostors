@@ -78,7 +78,6 @@ class MainHome : Fragment() {
                 .getSystemService(Context.NOTIFICATION_SERVICE)
                 as NotificationManager
 
-//      HMM BINGUNG MO KEMANA WKWKW
         val intent = Intent(this.activity, MainActivity::class.java)
         val pendingIntent = TaskStackBuilder.create(context)
                 .addNextIntentWithParentStack(intent)
