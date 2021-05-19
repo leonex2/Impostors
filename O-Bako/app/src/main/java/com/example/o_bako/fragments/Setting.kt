@@ -1,5 +1,6 @@
 package com.example.o_bako.fragments
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +9,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.example.o_bako.R
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.fragment_setting.*
+import java.io.File
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,22 +40,39 @@ class Setting : Fragment() {
         }
     }
 
+    var myFile : File? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_setting, container, false)
-
         val new_alamat = view.findViewById<TextView>(R.id.my_new_alamat)
         val edit_new = view.findViewById<EditText>(R.id.edit_new_alamat)
         val btn_submit = view.findViewById<Button>(R.id.btn_edit_submit)
+        val btn_check = view.findViewById<Button>(R.id.btn_check)
 
+        btn_check.setOnClickListener {
+            readCache()
+        }
         btn_submit.setOnClickListener {
-            new_alamat.text = edit_new.text
+            writeCache()
             edit_new.setText("")
         }
         return view
+    }
+    private fun readCache() {
+        if(myFile!=null) {
+            val stream = myFile?.inputStream()
+            val bytes = ByteArray(16)
+            stream?.read(bytes)
+            stream?.close()
+            my_new_alamat.setText(bytes?.toString(Charsets.UTF_8))
+        }
+    }
+    private fun writeCache() {
+        myFile = File.createTempFile("change",null)
+        myFile?.writeText(edit_new_alamat.text.toString())
     }
 
     companion object {
