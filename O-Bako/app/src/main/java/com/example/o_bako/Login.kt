@@ -1,34 +1,25 @@
 package com.example.o_bako
 
-import android.annotation.TargetApi
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.media.AudioManager
-import android.media.SoundPool
-import android.os.BatteryManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
 
-private var login_soundpool : SoundPool? = null
-private var login_soundID = 0
 class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        readFileInternal()
         btn_login.setOnClickListener {
             if(input_login.text.toString() != "" && input_password.text.toString() != ""){
-                if(login_soundID!=0) {
-                    login_soundpool?.play(login_soundID, .99f, .99f, 1, 0, .99f)
-                }
                 val intentToMainHome = Intent(this,MainActivity::class.java)
+                writeFileInternal()
                 var my_Login = input_login.text.toString()
                 intentToMainHome.putExtra(EXTRA_USERNAME,my_Login)
                 input_login.setText("")
@@ -59,39 +50,31 @@ class Login : AppCompatActivity() {
         }
     }
 
-    override fun onStart(){
-        super.onStart()
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            createNewSoundPool()
-        else
-            createOldSoundPool()
-
-        login_soundpool?.setOnLoadCompleteListener{soundPool, id, status ->
-            if(status != 0)
-                Toast.makeText(this,"Gagal Load",Toast.LENGTH_SHORT)
-                    .show()
-            else
-                Toast.makeText(this,"Load Sukses",Toast.LENGTH_SHORT)
-                    .show()
+    private fun writeFileInternal() {
+        var output = openFileOutput("login.txt", Context.MODE_PRIVATE).apply {
+            write(input_login.text.toString().toByteArray())
+            close()
         }
-        login_soundID = login_soundpool?.load(this, R.raw.mixkit_retro_game,1) ?: 0
-
-    }
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun createNewSoundPool() {
-        login_soundpool = SoundPool.Builder()
-            .setMaxStreams(15)
-            .build()
-    }
-    @Suppress("DEPRECATION")
-    private fun createOldSoundPool() {
-        login_soundpool = SoundPool(15, AudioManager.STREAM_MUSIC,0)
+        var myFile  = File(this.filesDir,"login.txt")
+        Toast.makeText(this,"File Save",Toast.LENGTH_SHORT).show()
     }
 
-    override fun onStop() {
-        super.onStop()
-        login_soundpool?.release()
-        login_soundpool = null
-
+    private fun readFileInternal() {
+        input_login.text.clear()
+        try{
+            var input = openFileInput("login.txt").apply {
+                bufferedReader().useLines {
+                    for(text in it.toList()){
+                        input_login.setText("${input_login.text}\n$text")
+                    }
+                }
+            }
+        }
+        catch (e : FileNotFoundException){
+            input_login.setHint("Username")
+        }
+        catch (e : IOException){
+            Toast.makeText(this,"File not found",Toast.LENGTH_SHORT).show()
+        }
     }
 }
