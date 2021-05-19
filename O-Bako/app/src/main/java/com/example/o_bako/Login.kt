@@ -33,22 +33,25 @@ class Login : AppCompatActivity() {
         }
         btn_signup.setOnClickListener{
             val intentSignup = Intent(this,SignUp::class.java)
-            startActivityForResult(intentSignup, EXTRA_REQUEST_CODE)
+            startActivity(intentSignup)
+//            startActivityForResult(intentSignup, EXTRA_REQUEST_CODE)
         }
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == EXTRA_REQUEST_CODE){
-            if(resultCode == EXTRA_RESULT_CODE){
-                input_login.setText (data?.getStringExtra(EXTRA_USERNAME) ?: "")
-                input_password.setText(data?.getStringExtra(EXTRA_PASSWORD) ?: "")
-            }
-            else if (resultCode == EXTRA_CANCEL_CODE){
-                input_login.setHint("Username")
-                input_password.setHint("Password")
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == EXTRA_REQUEST_CODE){
+//            if(resultCode == EXTRA_RESULT_CODE){
+//                input_login.setText (data?.getStringExtra(EXTRA_USERNAME) ?: "")
+//                input_password.setText(data?.getStringExtra(EXTRA_PASSWORD) ?: "")
+//            }
+//            else if (resultCode == EXTRA_CANCEL_CODE){
+//                input_login.setHint("Username")
+//                input_password.setHint("Password")
+//            }
+//        }
+//    }
+
+//Internal File Write&Read
 
     private fun writeFileInternal() {
         var output = openFileOutput("login.txt", Context.MODE_PRIVATE).apply {
