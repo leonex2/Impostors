@@ -2,13 +2,18 @@ package com.example.o_bako
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.storage.StorageManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.getSystemService
 import kotlinx.android.synthetic.main.activity_login.*
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
+import java.util.*
 
 class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +83,20 @@ class Login : AppCompatActivity() {
         }
         catch (e : IOException){
             Toast.makeText(this,"File not found",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun checkStorage(){
+        val NUM_BYTES_NEEDED_FOR_MY_APP = 1024 * 1024 * 10L
+        val storageManager = applicationContext.getSystemService<StorageManager>()!!
+        val appSpecificInternalDirUuid: UUID = storageManager.getUuidForPath(filesDir)
+        val availableBytes: Long = storageManager.getAllocatableBytes(appSpecificInternalDirUuid)
+        if (availableBytes <= NUM_BYTES_NEEDED_FOR_MY_APP) {
+            Toast.makeText(this, "Storage < 10MB", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            Toast.makeText(this, "Storage Tersedia ${availableBytes/1048576} MB", Toast.LENGTH_SHORT).show()
         }
     }
 }

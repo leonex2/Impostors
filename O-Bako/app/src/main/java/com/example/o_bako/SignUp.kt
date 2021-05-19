@@ -7,14 +7,11 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
-import android.os.storage.StorageManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.io.File
-import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 class SignUp : AppCompatActivity() {
@@ -24,7 +21,6 @@ class SignUp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         if(isExternalStorageReadable()){
-            checkStorage()
             btn_register.setOnClickListener {
                 if(reg_username.text.toString() != "" || reg_passwd.text.toString() != "" || reg_email.text.toString() != "" ){
                     var intentToLoginPage = Intent(this,Login::class.java)
@@ -63,19 +59,6 @@ class SignUp : AppCompatActivity() {
 //        }
     }
 //    External File Write&Read
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun checkStorage(){
-        val NUM_BYTES_NEEDED_FOR_MY_APP = 1024 * 1024 * 10L
-        val storageManager = applicationContext.getSystemService<StorageManager>()!!
-        val appSpecificInternalDirUuid: UUID = storageManager.getUuidForPath(filesDir)
-        val availableBytes: Long = storageManager.getAllocatableBytes(appSpecificInternalDirUuid)
-        if (availableBytes <= NUM_BYTES_NEEDED_FOR_MY_APP) {
-            Toast.makeText(this, "Storage < 10MB", Toast.LENGTH_SHORT).show()
-        }
-        else {
-            Toast.makeText(this, "Storage Tersedia ${availableBytes/1048576} MB", Toast.LENGTH_SHORT).show()
-        }
-    }
     private fun writeFileExternal() {
         var myDir = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.toURI())
         if(!myDir.exists()){
