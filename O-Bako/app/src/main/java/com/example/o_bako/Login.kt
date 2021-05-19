@@ -16,10 +16,11 @@ import java.io.IOException
 import java.util.*
 
 class Login : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
+        checkStorage()
         readFileInternal()
         btn_login.setOnClickListener {
             if(input_login.text.toString() != "" && input_password.text.toString() != ""){
@@ -85,7 +86,7 @@ class Login : AppCompatActivity() {
             Toast.makeText(this,"File not found",Toast.LENGTH_SHORT).show()
         }
     }
-
+    //Check Memory Availability
     @RequiresApi(Build.VERSION_CODES.O)
     private fun checkStorage(){
         val NUM_BYTES_NEEDED_FOR_MY_APP = 1024 * 1024 * 10L
