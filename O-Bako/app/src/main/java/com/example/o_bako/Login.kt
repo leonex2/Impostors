@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -64,7 +65,6 @@ class Login : AppCompatActivity() {
             write(input_login.text.toString().toByteArray())
             close()
         }
-        var myFile  = File(this.filesDir,"login.txt")
         Toast.makeText(this,"File Save",Toast.LENGTH_SHORT).show()
     }
 
@@ -83,7 +83,7 @@ class Login : AppCompatActivity() {
             input_login.setHint("Username")
         }
         catch (e : IOException){
-            Toast.makeText(this,"File not found",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"File ERROR !",Toast.LENGTH_SHORT).show()
         }
     }
     //Check Memory Availability

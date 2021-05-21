@@ -10,6 +10,7 @@ import android.os.Environment
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.io.File
 
@@ -22,7 +23,7 @@ class SignUp : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
         if(isExternalStorageReadable()){
             btn_register.setOnClickListener {
-                if(reg_username.text.toString() != "" || reg_passwd.text.toString() != "" || reg_email.text.toString() != "" ){
+                if(reg_username.text.toString() != "" && reg_passwd.text.toString() != "" && reg_email.text.toString() != "" ){
                     var intentToLoginPage = Intent(this,Login::class.java)
                     writeFileExternal()
                     intentToLoginPage.putExtra(EXTRA_USERSIGNUP,reg_username.text.toString())
@@ -60,33 +61,36 @@ class SignUp : AppCompatActivity() {
     }
 //    External File Write&Read
     private fun writeFileExternal() {
-        var myDir = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.toURI())
+        var myDir = File(getExternalFilesDir(""),"MyFolder")
         if(!myDir.exists()){
             myDir.mkdir()
         }
-        File(myDir,"Sign Up").apply {
+        File(myDir,"Sign Up.txt").apply {
             writeText(reg_username.text.toString())
         }
     }
     private fun readFileExternal() {
-        var myDir = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.toURI())
+        var myDir = File(getExternalFilesDir(""),"MyFolder")
         var readFile = ""
-        File(myDir,"Sign Up").forEachLine(Charsets.UTF_8) {
+        File(myDir,"Sign Up.txt").forEachLine(Charsets.UTF_8) {
             readFile += it
         }
         reg_username.setText(readFile)
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     fun isExternalStorageReadable(): Boolean{
-        if(ContextCompat.checkSelfPermission(
+        if(ContextCompat.checkSelfPermission( //Untuk mengecek Permission yang telah diberikan Aplikasi
                         this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE //Permission yang diminta pada AndroidManifest
+                ) != PackageManager.PERMISSION_GRANTED){ //Apakah sudah Permission telah diberikan
+            requestPermissions( // Jika belum, maka akan diminta Permission untuk Read , Write pada External.
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE),
                     123)
         }
+        //Mengecek State dari External Storage
         var state = Environment.getExternalStorageState()
+        //Apakah sdcard sudah terpasang ? atau sdcard hanya bisa di read
         if (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
         {
             return true
@@ -98,7 +102,8 @@ class SignUp : AppCompatActivity() {
             requestCode: Int,
             permissions: Array<out String>,
             grantResults: IntArray
-    ) {
+    ) { // Request Permission dalam Aplikasi yang akan mengembalikan sebuah Request Code
+        // Request code akan dikembalikan ke Fungsi isExternalStorageReadable() jika Access diberikan
         when (requestCode) {
             123 -> {
                 if ((grantResults.isNotEmpty() &&
