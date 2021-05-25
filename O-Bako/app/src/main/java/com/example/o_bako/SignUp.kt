@@ -45,7 +45,6 @@ class SignUp : AppCompatActivity() {
                 var mySharedHelper = ShPrefHelper(this,PrefFileName)
                 var intent = Intent()
                 if (user.isEmpty() && user_pw.isEmpty()) {
-                    readFileExternal()
                     Toast.makeText(this, "Silahkan isi data dengan benar !", Toast.LENGTH_SHORT).show()
                     setResult(EXTRA_CANCEL_CODE, intent)
                 }
@@ -78,14 +77,14 @@ class SignUp : AppCompatActivity() {
             writeText(reg_username.text.toString())
         }
     }
-    private fun readFileExternal() {
-        var myDir = File(getExternalFilesDir(""),"MyFolder")
-        var readFile = ""
-        File(myDir,"Sign Up.txt").forEachLine(Charsets.UTF_8) {
-            readFile += it
-        }
-        reg_username.setText(readFile)
-    }
+//    private fun readFileExternal() {
+//        var myDir = File(getExternalFilesDir(""),"MyFolder")
+//        var readFile = ""
+//        File(myDir,"Sign Up.txt").forEachLine(Charsets.UTF_8) {
+//            readFile += it
+//        }
+//        reg_username.setText(readFile)
+//    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun isExternalStorageReadable(): Boolean{
