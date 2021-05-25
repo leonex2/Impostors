@@ -50,19 +50,11 @@ class JenisProduk : Fragment(), ModelVInterface {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_jenis_produk, container, false)
 //        var strUrl = "https://i.pinimg.com/originals/a1/c6/84/a1c684556890ce23c4811e32c2b882a7.png"
-        val namaTxt = view.findViewById<TextView>(R.id.nama_product)
         val itemList = view.findViewById<RecyclerView>(R.id.itemView)
-
-        nama_jenis_barang = arguments?.getString("Pesan")
-        namaTxt.text = nama_jenis_barang
-
         myPresenter.initRecycle()
-
         myJenisBarangRecycleAdapter = JenisBarangRecycleAdapter(Stock)
         itemList.adapter = myJenisBarangRecycleAdapter
         itemList.layoutManager = LinearLayoutManager(this.activity)
-
-
         return view
     }
 //  Fungsi untuk melakukan pemprosesan URL untuk mendapatkan gambar

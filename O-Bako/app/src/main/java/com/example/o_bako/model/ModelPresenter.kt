@@ -14,11 +14,18 @@ class ModelPresenter (setView : ModelVInterface) {
         view.addList(mainModel)
     }
     fun initRecycle(){
-        mainModel.item.add(Data(R.drawable.icon_blue,
+        mainModel.item.add(
+                Data(R.drawable.icon_blue,
                 "Kentang",
-                "Ini Kentang",
-                "12",
+                "Kentang Kuning Manis",
+                "1",
                 "3000"))
+        mainModel.item.add(
+                Data(R.drawable.icon_blue,
+                "Jagung",
+                "Jagung Fresh yang baru dipetik",
+                "2",
+                "1500"))
         view.initList(mainModel)
     }
 }

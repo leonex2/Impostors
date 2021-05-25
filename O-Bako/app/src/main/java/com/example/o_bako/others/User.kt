@@ -4,9 +4,11 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-//Untuk mengubah data class menjadi parcelable hanya perlu menambahkan @Parcelize sebelum data class
-//kemudian menambahkan :Parcelable pada akhir dari data class
-data class User(var Username : String = "Null",
-                var Password : String = "Null" ,
-                var Email : String = "Null") : Parcelable {
+class User : Parcelable {
+    var id: Int = 0
+    var username : String = ""
+    var password : String = ""
+    var nama_user : String = ""
+    var nomor_hp : String = ""
+    var alamat : String = ""
 }
