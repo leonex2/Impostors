@@ -70,9 +70,12 @@ class SignUp : AppCompatActivity() {
             myDir.mkdir()
         }
         File(myDir,"Sign Up.txt").apply {
-            writeText(reg_username.text.toString() + "\n" +
-                    reg_passwd.text.toString() + "\n" +
-                    reg_email.text.toString())
+//            writeText(reg_name.text.toString() + "\n" +
+//                    reg_username.text.toString() + "\n" +
+//                    reg_passwd.text.toString()+ "\n" +
+//                    reg_email.text.toString()+ "\n" +
+//                    reg_phonenumber.text.toString())
+            writeText(reg_username.text.toString())
         }
     }
     private fun readFileExternal() {

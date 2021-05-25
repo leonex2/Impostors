@@ -7,98 +7,206 @@
     tools:context=".fragments.Setting">
 
     <TextView
-        android:id="@+id/edit_profile_txt"
+        android:id="@+id/edit_profile_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Profile"
+        android:padding="5dp"
+        android:text="Edit your Profile !"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.175" />
+        app:layout_constraintVertical_bias="0.022" />
 
     <TextView
-        android:id="@+id/my_alamat_label"
-        android:layout_width="150dp"
+        android:id="@+id/label_username"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:gravity="right"
-        android:text="Alamat Rumah : "
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.007"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.291" />
-
-    <TextView
-        android:id="@+id/my_new_alamat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:hint="Jl. Thamrin No.29A Medan"
+        android:padding="5dp"
+        android:text="Username :"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/my_alamat_label"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.291" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_label"
+        app:layout_constraintVertical_bias="0.015" />
 
     <TextView
-        android:id="@+id/edit_new_alamat_label"
-        android:layout_width="150dp"
+        android:id="@+id/label_password"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:gravity="right"
-        android:text="Alamat Baru : "
+        android:padding="5dp"
+        android:text="Password :"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_alamat_label"
-        app:layout_constraintVertical_bias="0.037"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_username"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/label_email"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="right"
+        android:padding="5dp"
+        android:text="E-Mail :"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_nama"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/label_nama"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="right"
+        android:padding="5dp"
+        android:text="Nama :"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_password"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/label_nohp"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="right"
+        android:padding="5dp"
+        android:text="No. HP :"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_email"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/edit_new_alamat"
+        android:id="@+id/edit_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:ems="10"
-        android:hint="Alamat Baru"
+        android:hint="New Username"
         android:inputType="textPersonName"
-        android:textSize="18sp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toEndOf="@+id/edit_new_alamat_label"
-        app:layout_constraintTop_toBottomOf="@+id/my_new_alamat"/>
+        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintStart_toEndOf="@+id/label_username"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_label"
+        app:layout_constraintVertical_bias="0.031" />
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="New Password"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/label_password"
+        app:layout_constraintTop_toBottomOf="@+id/edit_username"
+        app:layout_constraintVertical_bias="0.005" />
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Your Name"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/label_nama"
+        app:layout_constraintTop_toBottomOf="@+id/edit_password"
+        app:layout_constraintVertical_bias="0.007" />
+
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="youremail@domain.com"
+        android:inputType="textEmailAddress"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/label_email"
+        app:layout_constraintTop_toBottomOf="@+id/edit_name"
+        app:layout_constraintVertical_bias="0.006" />
+
+    <EditText
+        android:id="@+id/edit_phonenumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/label_nohp"
+        app:layout_constraintTop_toBottomOf="@+id/edit_email"
+        app:layout_constraintVertical_bias="0.008" />
 
     <Button
         android:id="@+id/btn_edit_submit"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#32cf32"
         android:text="Submit"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.282"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_new_alamat"
-        app:layout_constraintVertical_bias="0.111"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_nohp" />
 
     <Button
-        android:id="@+id/btn_check"
+        android:id="@+id/btn_edit_cancel"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#32cf32"
-        android:text="Check"
+        android:layout_marginBottom="340dp"
+        android:backgroundTint="#fa3737"
+        android:text="Cancel"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintHorizontal_bias="0.276"
         app:layout_constraintStart_toEndOf="@+id/btn_edit_submit"
-        app:layout_constraintTop_toBottomOf="@+id/edit_new_alamat"
-        app:layout_constraintVertical_bias="0.111"/>
+        app:layout_constraintTop_toBottomOf="@+id/edit_phonenumber"
+        app:layout_constraintVertical_bias="0.25" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

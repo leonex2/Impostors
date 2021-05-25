@@ -40,39 +40,21 @@ class Setting : Fragment() {
         }
     }
 
-    var myFile : File? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_setting, container, false)
-        val new_alamat = view.findViewById<TextView>(R.id.my_new_alamat)
-        val edit_new = view.findViewById<EditText>(R.id.edit_new_alamat)
-        val btn_submit = view.findViewById<Button>(R.id.btn_edit_submit)
-        val btn_check = view.findViewById<Button>(R.id.btn_check)
+        val edit_Username = view.findViewById<EditText>(R.id.edit_username)
+        val edit_Password = view.findViewById<EditText>(R.id.edit_password)
+        val edit_Name = view.findViewById<EditText>(R.id.edit_name)
+        val edit_Email = view.findViewById<EditText>(R.id.edit_email)
+        val edit_Phone = view.findViewById<EditText>(R.id.edit_phonenumber)
+        val btn_Submit = view.findViewById<Button>(R.id.btn_edit_submit)
+        val btn_Cancel = view.findViewById<Button>(R.id.btn_edit_cancel)
 
-        btn_check.setOnClickListener {
-            readCache()
-        }
-        btn_submit.setOnClickListener {
-            writeCache()
-            edit_new.setText("")
-        }
         return view
-    }
-    private fun readCache() {
-        if(myFile!=null) {
-            val stream = myFile?.inputStream()
-            val bytes = ByteArray(16)
-            stream?.read(bytes)
-            stream?.close()
-            my_new_alamat.setText(bytes?.toString(Charsets.UTF_8))
-        }
-    }
-    private fun writeCache() {
-        myFile = File.createTempFile("change",null)
-        myFile?.writeText(edit_new_alamat.text.toString())
     }
 
     companion object {
