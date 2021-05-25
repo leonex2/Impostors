@@ -1,14 +1,16 @@
 package com.example.o_bako
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Parcelize
-class User : Parcelable {
-    var id: Int = 0
-    var username : String = ""
-    var password : String = ""
-    var nama_user : String = ""
-    var nomor_hp : String = ""
-    var alamat : String = ""
-}
+@Entity
+data class User (
+        @PrimaryKey var id: Int = 0,
+        @ColumnInfo(name = "COLUMN_NAME") var nama_user : String = "",
+        @ColumnInfo(name = "COLUMN_USERNAME") var username : String = "",
+        @ColumnInfo(name = "COLUMN_PASSWORD") var password : String = "",
+        @ColumnInfo(name = "COLUMN_EMAIL") var email : String = "",
+        @ColumnInfo(name = "COLUMN_ALAMAT") var alamat : String = "",
+        @ColumnInfo(name = "COLUMN_NOHP") var nomor_hp : String = ""
+)

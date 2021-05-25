@@ -11,9 +11,14 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.room.Room
+import com.example.o_bako.Database.DBHelper
+import com.example.o_bako.Database.UserDao
 import com.example.o_bako.others.ShPrefHelper
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import org.jetbrains.anko.doAsync
 import java.io.File
+import kotlin.random.Random
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 class SignUp : AppCompatActivity() {
@@ -22,38 +27,51 @@ class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        var db= Room.databaseBuilder(
+            this,
+            DBHelper::class.java,
+            "obako.db"
+        ).build()
+
         if(isExternalStorageReadable()) {
-//            btn_register.setOnClickListener {
-//                var mySharedHelper = ShPrefHelper(this,PrefFileName)
-//                if (reg_username.text.toString() != "" && reg_passwd.text.toString() != "" && reg_email.text.toString() != "") {
-//                    var intentToLoginPage = Intent(this, Login::class.java)
-//                    writeFileExternal()
-//                    intentToLoginPage.putExtra(EXTRA_USERSIGNUP, reg_username.text.toString())
-//                    intentToLoginPage.putExtra(EXTRA_PASSWORDSIGNUP, reg_passwd.text.toString())
-//                    intentToLoginPage.putExtra(EXTRA_EMAILSIGNUP, reg_email.text.toString())
-//                    Toast.makeText(this, "Akun Berhasil dibuat!", Toast.LENGTH_SHORT).show()
-//                    startActivity(intentToLoginPage)
-//                } else {
-//                    readFileExternal()
-//                    Toast.makeText(this, "Silahkan isi data dengan benar !", Toast.LENGTH_SHORT).show()
-//                }
-//            }
             btn_register.setOnClickListener {
-                var user = reg_username.text.toString()
+
+                var user_name = reg_name.text.toString()
+                var username = reg_username.text.toString()
                 var user_pw = reg_passwd.text.toString()
+                var user_homeaddress = reg_alamat.text.toString()
                 var user_email = reg_email.text.toString()
+                var user_phone = reg_phonenumber.text.toString()
                 var mySharedHelper = ShPrefHelper(this,PrefFileName)
+
                 var intent = Intent()
-                if (user.isEmpty() && user_pw.isEmpty()) {
+                if (username.isEmpty() && user_pw.isEmpty()) {
                     Toast.makeText(this, "Silahkan isi data dengan benar !", Toast.LENGTH_SHORT).show()
                     setResult(EXTRA_CANCEL_CODE, intent)
                 }
                 else {
                     writeFileExternal()
-                    mySharedHelper.username = user
+                    var hasil = ""
+                    doAsync {
+                        db.userDao().insertUser(
+                            User(Random.nextInt(),user_name,username,user_pw,
+                                user_email,user_homeaddress,user_phone)
+                        )
+                        for(allData in db.userDao().getAllData()){
+                            hasil += "${allData.nama_user} ${allData.username} ${allData.password}" +
+                                    "${allData.email} ${allData.alamat} ${allData.nomor_hp}"
+                        }
+
+                    }
+                    mySharedHelper.nama = user_name
+                    mySharedHelper.username = username
                     mySharedHelper.password = user_pw
+                    mySharedHelper.home_address = user_homeaddress
                     mySharedHelper.email = user_email
-                    intent.putExtra(EXTRA_USERNAME, user)
+                    mySharedHelper.phone_number = user_phone
+
+                    intent.putExtra(EXTRA_USERNAME, username)
                     intent.putExtra(EXTRA_PASSWORD, user_pw)
                     Toast.makeText(this,"Akun Berhasil dibuat!", Toast.LENGTH_SHORT).show()
                     setResult(EXTRA_RESULT_CODE, intent)
