@@ -9,6 +9,8 @@ import android.os.storage.StorageManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
+import androidx.room.Room
+import com.example.o_bako.Database.DBHelper
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.io.File
@@ -21,12 +23,14 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        var myLogin = input_login.text.toString()
         readFileInternal()
+
         btn_login.setOnClickListener {
             if(input_login.text.toString() != "" && input_password.text.toString() != ""){
                 val intentToMainHome = Intent(this,MainActivity::class.java)
                 writeFileInternal()
-                var my_Login = input_login.text.toString()
                 input_login.setText("")
                 input_password.setText("")
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()

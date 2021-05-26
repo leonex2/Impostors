@@ -1,6 +1,6 @@
 package com.example.o_bako.fragments
 
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
-import androidx.annotation.RequiresApi
+import androidx.room.Room
+import com.example.o_bako.Database.DBHelper
+import com.example.o_bako.Login
 import com.example.o_bako.R
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_setting.*
-import java.io.File
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import org.jetbrains.anko.doAsync
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,14 +45,34 @@ class Setting : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_setting, container, false)
-        val edit_Username = view.findViewById<EditText>(R.id.edit_username)
+
         val edit_Password = view.findViewById<EditText>(R.id.edit_password)
         val edit_Name = view.findViewById<EditText>(R.id.edit_name)
         val edit_Email = view.findViewById<EditText>(R.id.edit_email)
+        val edit_alamat = view.findViewById<EditText>(R.id.edit_alamat)
         val edit_Phone = view.findViewById<EditText>(R.id.edit_phonenumber)
         val btn_Submit = view.findViewById<Button>(R.id.btn_edit_submit)
-        val btn_Cancel = view.findViewById<Button>(R.id.btn_edit_cancel)
+        val btn_delete = view.findViewById<Button>(R.id.btn_delete_acc)
+        var db = Room.databaseBuilder(
+                context!!,
+                DBHelper::class.java,
+                "obako.db"
+        ).build()
 
+        btn_Submit.setOnClickListener {
+            var name_New = edit_Name.text.toString()
+            var alamat_New = edit_alamat.text.toString()
+            doAsync {
+                db.userDao().editData(1,name_New, alamat_New)
+            }
+        }
+        btn_delete.setOnClickListener {
+            doAsync {
+                db.userDao().deleteAccount(1)
+            }
+            var intentToLogin = Intent(context,Login::class.java)
+            startActivity(intentToLogin)
+        }
         return view
     }
 

@@ -1,7 +1,6 @@
 package com.example.o_bako.Database
 
 import androidx.room.*
-import com.example.o_bako.User
 
 @Dao
 interface UserDao {
@@ -11,6 +10,9 @@ interface UserDao {
     @Insert
     fun insertUser (vararg user : User)
 
-    @Query ("Delete From User where COLUMN_NAME = :nama_user")
-    fun deleteUser (nama_user : String)
+    @Query("UPDATE User SET COLUMN_NAME=:value1, COLUMN_ALAMAT=:value2 where COLUMN_ID=:myID")
+    fun editData(myID : Int, value1 : String, value2 : String)
+
+    @Query("DELETE FROM User where COLUMN_ID = :thisID")
+    fun deleteAccount(thisID : Int)
 }

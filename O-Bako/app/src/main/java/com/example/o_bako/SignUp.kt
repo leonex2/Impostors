@@ -10,10 +10,9 @@ import android.os.Environment
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.room.Room
 import com.example.o_bako.Database.DBHelper
-import com.example.o_bako.Database.UserDao
+import com.example.o_bako.Database.User
 import com.example.o_bako.others.ShPrefHelper
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
@@ -28,7 +27,7 @@ class SignUp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        var db= Room.databaseBuilder(
+        var db = Room.databaseBuilder(
             this,
             DBHelper::class.java,
             "obako.db"
@@ -55,7 +54,7 @@ class SignUp : AppCompatActivity() {
                     var hasil = ""
                     doAsync {
                         db.userDao().insertUser(
-                            User(Random.nextInt(),user_name,username,user_pw,
+                            User(id = 0,user_name,username,user_pw,
                                 user_email,user_homeaddress,user_phone)
                         )
                         for(allData in db.userDao().getAllData()){
@@ -87,23 +86,9 @@ class SignUp : AppCompatActivity() {
             myDir.mkdir()
         }
         File(myDir,"Sign Up.txt").apply {
-//            writeText(reg_name.text.toString() + "\n" +
-//                    reg_username.text.toString() + "\n" +
-//                    reg_passwd.text.toString()+ "\n" +
-//                    reg_email.text.toString()+ "\n" +
-//                    reg_phonenumber.text.toString())
             writeText(reg_username.text.toString())
         }
     }
-//    private fun readFileExternal() {
-//        var myDir = File(getExternalFilesDir(""),"MyFolder")
-//        var readFile = ""
-//        File(myDir,"Sign Up.txt").forEachLine(Charsets.UTF_8) {
-//            readFile += it
-//        }
-//        reg_username.setText(readFile)
-//    }
-
     @RequiresApi(Build.VERSION_CODES.M)
     fun isExternalStorageReadable(): Boolean{
         if(ContextCompat.checkSelfPermission( //Untuk mengecek Permission yang telah diberikan Aplikasi
