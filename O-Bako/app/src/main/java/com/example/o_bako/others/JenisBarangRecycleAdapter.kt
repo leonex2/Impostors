@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.o_bako.DatabaseSQLite.Data
 
 class JenisBarangRecycleAdapter (DataBarang : MutableList<Data>) : RecyclerView.Adapter<JenisBarangRecycleAdapter.Holder>(){
     private val dataStock = DataBarang
+
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val ImageBarang = itemView.findViewById<ImageView>(R.id.imgBarang)
         val NamaBarang = itemView.findViewById<TextView>(R.id.namaBarang)
         val DeskripsiBarang = itemView.findViewById<TextView>(R.id.deskripsiBarang)
         val Quantity = itemView.findViewById<TextView>(R.id.quantity)
@@ -27,12 +27,11 @@ class JenisBarangRecycleAdapter (DataBarang : MutableList<Data>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.ImageBarang.setImageResource(dataStock.get(position).Image)
         holder.NamaBarang.setText(dataStock.get(position).Nama)
         holder.DeskripsiBarang.setText(dataStock.get(position).Deskripsi)
         holder.Quantity.setText(dataStock.get(position).Qty)
         holder.Cost.setText(dataStock.get(position).Harga_Barang)
-    }
 
+    }
     override fun getItemCount(): Int = dataStock.size
 }

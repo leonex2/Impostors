@@ -1,11 +1,11 @@
-package com.example.o_bako.Database
+package com.example.o_bako.DatabaseRoom
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class User (
+data class UserRoom (
         @PrimaryKey(autoGenerate = true) @ColumnInfo(name ="COLUMN_ID") var id: Int = 0,
         @ColumnInfo(name = "COLUMN_NAME") var nama_user : String = "",
         @ColumnInfo(name = "COLUMN_USERNAME") var username : String = "",

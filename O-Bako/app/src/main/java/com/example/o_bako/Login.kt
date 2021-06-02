@@ -1,23 +1,17 @@
 package com.example.o_bako
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.storage.StorageManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.getSystemService
 import androidx.room.Room
-import com.example.o_bako.Database.DBHelper
+import com.example.o_bako.DatabaseRoom.DBHelperRoom
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.IOException
 import java.util.*
 
 class Login : AppCompatActivity() {
@@ -26,9 +20,10 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+//        Room Version
         var db = Room.databaseBuilder(
                 this,
-                DBHelper::class.java,
+                DBHelperRoom::class.java,
                 "obako.db"
         ).build()
 

@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.room.Room
-import com.example.o_bako.Database.DBHelper
+import com.example.o_bako.DatabaseRoom.DBHelperRoom
 import com.example.o_bako.Login
 import com.example.o_bako.R
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.fragment_setting.*
 import org.jetbrains.anko.doAsync
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,7 +53,7 @@ class Setting : Fragment() {
         val btn_delete = view.findViewById<Button>(R.id.btn_delete_acc)
         var db = Room.databaseBuilder(
                 context!!,
-                DBHelper::class.java,
+                DBHelperRoom::class.java,
                 "obako.db"
         ).build()
 

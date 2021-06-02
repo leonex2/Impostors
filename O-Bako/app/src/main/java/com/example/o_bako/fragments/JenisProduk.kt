@@ -1,19 +1,24 @@
 package com.example.o_bako.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.o_bako.Data
+import com.example.o_bako.DatabaseSQLite.DBHelperSQLite
+import com.example.o_bako.DatabaseSQLite.Data
 import com.example.o_bako.JenisBarangRecycleAdapter
 import com.example.o_bako.R
-import com.example.o_bako.model.MainModel
-import com.example.o_bako.model.ModelPresenter
-import com.example.o_bako.model.ModelVInterface
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +30,9 @@ private const val ARG_PARAM2 = "param2"
  * Use the [JenisProduk.newInstance] factory method to
  * create an instance of this fragment.
  */
-class JenisProduk : Fragment(), ModelVInterface {
+class JenisProduk : Fragment()
+//        , ModelVInterface
+{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -38,10 +45,10 @@ class JenisProduk : Fragment(), ModelVInterface {
         }
     }
 
-    var nama_jenis_barang : String? = ""
     private lateinit var myJenisBarangRecycleAdapter : JenisBarangRecycleAdapter
     private var Stock : MutableList<Data> = mutableListOf()
-    var myPresenter = ModelPresenter(this)
+    private var mySQLite : DBHelperSQLite ?= null
+//    var myPresenter = ModelPresenter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,14 +56,58 @@ class JenisProduk : Fragment(), ModelVInterface {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_jenis_produk, container, false)
-//        var strUrl = "https://i.pinimg.com/originals/a1/c6/84/a1c684556890ce23c4811e32c2b882a7.png"
         val itemList = view.findViewById<RecyclerView>(R.id.itemView)
-        myPresenter.initRecycle()
+        val btn_addBarang = view.findViewById<Button>(R.id.addBarang)
+//        var strUrl = "https://i.pinimg.com/originals/a1/c6/84/a1c684556890ce23c4811e32c2b882a7.png"
+//        myPresenter.initRecycle()
         myJenisBarangRecycleAdapter = JenisBarangRecycleAdapter(Stock)
         itemList.adapter = myJenisBarangRecycleAdapter
         itemList.layoutManager = LinearLayoutManager(this.activity)
+
+        btn_addBarang.setOnClickListener {
+            dialogAdd()
+        }
+        readData()
         return view
     }
+
+    private fun dialogAdd() {
+        var BuilderDialog = AlertDialog.Builder(context)
+        var inflater = layoutInflater.inflate(R.layout.alert_add_barang,null)
+        BuilderDialog.setView(inflater)
+        BuilderDialog.setPositiveButton("Add"){ dialogInterface: DialogInterface, i: Int ->
+            var nama = inflater.findViewById<EditText>(R.id.nama_barang)
+            var deskripsi = inflater.findViewById<EditText>(R.id.deskripsi_barang)
+            var qty = inflater.findViewById<EditText>(R.id.qty_barang)
+            var harga = inflater.findViewById<EditText>(R.id.cost_barang)
+
+            var nama_temp = nama.text.toString()
+            var deskripsi_temp = deskripsi.text.toString()
+            var qty_temp = qty.text.toString()
+            var harga_temp = harga.text.toString()
+
+            doAsync {
+                mySQLite?.addData(Data(nama_temp,deskripsi_temp,qty_temp,harga_temp))
+                uiThread {
+                    Toast.makeText(context,"Added!",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        BuilderDialog.create().show()
+    }
+
+    private fun readData() {
+        var hasil = ""
+        doAsync {
+            Stock = mySQLite?.getBarang()!!.toMutableList()
+            for (data in Stock)
+                hasil+= "${data.Nama} ${data.Deskripsi} ${data.Qty} ${data.Harga_Barang}"
+            uiThread {
+                Log.w("Hasil", hasil)
+            }
+        }
+    }
+
 //  Fungsi untuk melakukan pemprosesan URL untuk mendapatkan gambar
 //    private fun processBitMap(url: String): Bitmap? {
 //        return try{
@@ -93,11 +144,11 @@ class JenisProduk : Fragment(), ModelVInterface {
             }
     }
 
-    override fun addList(model: MainModel) {
-        TODO("Not yet implemented")
-    }
-
-    override fun initList(model: MainModel) {
-        Stock = model.item
-    }
+//MVP
+//    override fun addList(model: MainModel) {
+//    }
+//
+//    override fun initList(model: MainModel) {
+//        Stock = model.item
+//    }
 }

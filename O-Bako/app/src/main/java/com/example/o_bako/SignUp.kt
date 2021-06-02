@@ -1,37 +1,34 @@
 package com.example.o_bako
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.room.Room
-import com.example.o_bako.Database.DBHelper
-import com.example.o_bako.Database.User
+import com.example.o_bako.DatabaseRoom.DBHelperRoom
+import com.example.o_bako.DatabaseRoom.UserRoom
 import com.example.o_bako.others.ShPrefHelper
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
-import java.io.File
-import kotlin.random.Random
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 class SignUp : AppCompatActivity() {
     private val PrefFileName = "MySharedPreference"
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+//        Room Version
         var db = Room.databaseBuilder(
             this,
-            DBHelper::class.java,
+            DBHelperRoom::class.java,
             "obako.db"
         ).build()
+
         btn_register.setOnClickListener {
             val intentToLogin = Intent(this,Login::class.java)
             var user_name = reg_name.text.toString()
@@ -42,17 +39,17 @@ class SignUp : AppCompatActivity() {
             var user_phone = reg_phonenumber.text.toString()
             var mySharedHelper = ShPrefHelper(this,PrefFileName)
 
+//            Room Version
             var hasil = ""
             doAsync {
                 db.userDao().insertUser(
-                    User(id = 0,user_name,username,user_pw,
+                    UserRoom(id = 0,user_name,username,user_pw,
                         user_email,user_homeaddress,user_phone)
                 )
                 for(allData in db.userDao().getAllData()){
                     hasil += "${allData.nama_user} ${allData.username} ${allData.password}" +
                             "${allData.email} ${allData.alamat} ${allData.nomor_hp}"
                 }
-
             }
             mySharedHelper.nama = user_name
             mySharedHelper.username = username
