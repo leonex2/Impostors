@@ -11,16 +11,17 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
         context, DATABASE_NAME,null, DB_VERSION) {
     companion object {
         private val DB_VERSION = 1
-        private val DATABASE_NAME = "o-bako.db"
+        private val DATABASE_NAME = "test.db"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        var query = ("CREATE TABLE ${barangDB.tableBarang.TABLE_BARANG} " +
-                "(${barangDB.tableBarang.COLUMN_NAMA} TEXT," +
+        var CREATE_TABLE = ("CREATE TABLE ${barangDB.tableBarang.TABLE_BARANG} " +
+                "(${barangDB.tableBarang.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "${barangDB.tableBarang.COLUMN_NAMA} TEXT," +
                 "${barangDB.tableBarang.COLUMN_DESKRIPSI} TEXT," +
                 "${barangDB.tableBarang.COLUMN_QTY} TEXT," +
                 "${barangDB.tableBarang.COLUMN_HARGA} TEXT)")
-        db!!.execSQL(query)
+        db!!.execSQL(CREATE_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -58,14 +59,17 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
 //            db.execSQL(query)
             return ArrayList()
         }
-
-        var namaBarang = ""
-        var deskripsiBarang = ""
-        var hargaBarang = ""
-        var qtyBarang = ""
+        var idBarang : Int = 1
+        var namaBarang : String = ""
+        var deskripsiBarang : String = ""
+        var hargaBarang : String = ""
+        var qtyBarang : String = ""
 
         if(cursor.moveToFirst()){
             do{
+                idBarang = cursor.getInt(
+                        cursor.getColumnIndex(barangDB.tableBarang.COLUMN_ID)
+                )
                 namaBarang = cursor.getString(
                         cursor.getColumnIndex(barangDB.tableBarang.COLUMN_NAMA)
                 )
@@ -78,7 +82,7 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
                 qtyBarang = cursor.getString(
                         cursor.getColumnIndex(barangDB.tableBarang.COLUMN_QTY)
                 )
-                dataList.add(Data(namaBarang,deskripsiBarang,qtyBarang,hargaBarang))
+                dataList.add(Data(idBarang,namaBarang,deskripsiBarang,qtyBarang,hargaBarang))
             }while(cursor.moveToNext())
         }
         return dataList

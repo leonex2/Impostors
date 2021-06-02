@@ -65,13 +65,13 @@ class JenisProduk : Fragment()
         itemList.layoutManager = LinearLayoutManager(this.activity)
 
         btn_addBarang.setOnClickListener {
-            dialogAdd()
+            dialogAddBarang()
+            readList()
         }
-        readData()
         return view
     }
 
-    private fun dialogAdd() {
+    private fun dialogAddBarang() {
         var BuilderDialog = AlertDialog.Builder(context)
         var inflater = layoutInflater.inflate(R.layout.alert_add_barang,null)
         BuilderDialog.setView(inflater)
@@ -87,7 +87,7 @@ class JenisProduk : Fragment()
             var harga_temp = harga.text.toString()
 
             doAsync {
-                mySQLite?.addData(Data(nama_temp,deskripsi_temp,qty_temp,harga_temp))
+                mySQLite?.addData(Data(0,nama_temp,deskripsi_temp,qty_temp,harga_temp))
                 uiThread {
                     Toast.makeText(context,"Added!",Toast.LENGTH_SHORT).show()
                 }
@@ -96,7 +96,7 @@ class JenisProduk : Fragment()
         BuilderDialog.create().show()
     }
 
-    private fun readData() {
+    private fun readList() {
         var hasil = ""
         doAsync {
             Stock = mySQLite?.getBarang()!!.toMutableList()
