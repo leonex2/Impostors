@@ -8,7 +8,7 @@ object barangDB {
             val TABLE_BARANG = "Barang"
             val COLUMN_NAMA: String = "Nama"
             val COLUMN_DESKRIPSI: String = "Deskripsi"
-            val COLUMN_QTY : String = "0"
+            val COLUMN_QTY : String = "qwq"
             val COLUMN_HARGA : String = "Harga"
         }
     }
