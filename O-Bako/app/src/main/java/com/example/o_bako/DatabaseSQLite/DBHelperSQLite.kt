@@ -101,10 +101,10 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
 
     fun addDataTranscation(data : Data){
         var query = "INSERT INTO ${barangDB.tableBarang.TABLE_BARANG} " +
-                "(${barangDB.tableBarang.COLUMN_NAMA}" +
-                "${barangDB.tableBarang.COLUMN_DESKRIPSI}" +
-                "${barangDB.tableBarang.COLUMN_QTY}" +
-                "${barangDB.tableBarang.COLUMN_HARGA}) VALUES (?,?,?,?)"
+                "(${barangDB.tableBarang.COLUMN_NAMA} " +
+                "${barangDB.tableBarang.COLUMN_DESKRIPSI} " +
+                "${barangDB.tableBarang.COLUMN_QTY} " +
+                "${barangDB.tableBarang.COLUMN_HARGA}) VALUES (?,?,?,?) "
         val statement = this.writableDatabase.compileStatement(query)
         statement.bindString(1,data.Nama)
         statement.bindString(2,data.Deskripsi)
@@ -116,16 +116,14 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
 
     fun updateDataTransaction(data : Data){
         var query = "UPDATE ${barangDB.tableBarang.TABLE_BARANG} SET " +
-                "${barangDB.tableBarang.COLUMN_NAMA} = ?,"+
-                "${barangDB.tableBarang.COLUMN_DESKRIPSI} = ?,"+
-                "${barangDB.tableBarang.COLUMN_QTY} = ?,"+
-                "${barangDB.tableBarang.COLUMN_HARGA} = ? WHERE ${barangDB.tableBarang.COLUMN_ID}=?"
+                "${barangDB.tableBarang.COLUMN_DESKRIPSI} = ?, "+
+                "${barangDB.tableBarang.COLUMN_QTY} = ?, "+
+                "${barangDB.tableBarang.COLUMN_HARGA} = ? WHERE ${barangDB.tableBarang.COLUMN_NAMA}=?"
         val statement = this.writableDatabase.compileStatement(query)
-        statement.bindString(1, data.Nama)
-        statement.bindString(2, data.Deskripsi)
-        statement.bindString(3, data.Qty)
-        statement.bindString(4, data.Harga_Barang)
-        statement.bindLong(5, data.id.toLong())
+        statement.bindString(1, data.Deskripsi)
+        statement.bindString(2, data.Qty)
+        statement.bindString(3, data.Harga_Barang)
+        statement.bindString(4, data.Nama)
         statement.execute()
         statement.clearBindings()
     }

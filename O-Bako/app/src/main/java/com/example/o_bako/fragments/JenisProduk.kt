@@ -2,6 +2,7 @@ package com.example.o_bako.fragments
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -61,6 +62,7 @@ class JenisProduk : Fragment()
         readData()
         val itemList = view.findViewById<RecyclerView>(R.id.itemView)
         val btn_addBarang = view.findViewById<Button>(R.id.addBarang)
+        val btn_editBarang = view.findViewById<Button>(R.id.editBarang)
 //        var strUrl = "https://i.pinimg.com/originals/a1/c6/84/a1c684556890ce23c4811e32c2b882a7.png"
 //        myPresenter.initRecycle()
 
@@ -77,11 +79,36 @@ class JenisProduk : Fragment()
                 var deskripsi_temp = deskripsi.text.toString()
                 var qty_temp = qty.text.toString()
                 var harga_temp = harga.text.toString()
-                addItem(0,nama_temp,deskripsi_temp,qty_temp,harga_temp)
+                addItem(1,nama_temp,deskripsi_temp,qty_temp,harga_temp)
                 readData()
             }
             BuilderDialog.create().show()
         }
+
+        btn_editBarang.setOnClickListener{
+            var BuilderDialog = AlertDialog.Builder(context)
+            var inflater = layoutInflater.inflate(R.layout.alert_add_barang,null)
+            BuilderDialog.setView(inflater)
+            BuilderDialog.setPositiveButton("Edit") { dialogInterface: DialogInterface, i: Int ->
+                var nama = inflater.findViewById<EditText>(R.id.nama_barang)
+                var deskripsi = inflater.findViewById<EditText>(R.id.deskripsi_barang)
+                var qty = inflater.findViewById<EditText>(R.id.qty_barang)
+                var harga = inflater.findViewById<EditText>(R.id.cost_barang)
+                var nama_temp = nama.text.toString()
+                var deskripsi_temp = deskripsi.text.toString()
+                var qty_temp = qty.text.toString()
+                var harga_temp = harga.text.toString()
+                doAsync {
+                    mySQLite?.beginDataTransaction()
+                    mySQLite?.updateDataTransaction(Data(1,nama_temp,deskripsi_temp,qty_temp,harga_temp))
+                    mySQLite?.successDataTransaction()
+                    mySQLite?.endDataTransaction()
+                }
+                readData()
+            }
+            BuilderDialog.create().show()
+        }
+
         myJenisBarangRecycleAdapter = JenisBarangRecycleAdapter(Stock)
         itemList.adapter = myJenisBarangRecycleAdapter
         itemList.layoutManager = LinearLayoutManager(this.activity)
