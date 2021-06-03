@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.o_bako.DatabaseSQLite.DBHelperSQLite
 import com.example.o_bako.DatabaseSQLite.Data
-import com.example.o_bako.fragments.*
+import com.example.o_bako.Fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread

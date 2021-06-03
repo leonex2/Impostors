@@ -4,14 +4,12 @@ import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.view.View
-import android.widget.Toast
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.o_bako.others.ContactList
-import com.example.o_bako.others.ContactRecycle
+import com.example.o_bako.Others.ContactList
+import com.example.o_bako.Others.ContactRecycle
 import kotlinx.android.synthetic.main.activity_invite_friend.*
 import kotlinx.android.synthetic.main.fragment_jenis_produk.*
 import kotlinx.android.synthetic.main.recycle_contact_list.view.*

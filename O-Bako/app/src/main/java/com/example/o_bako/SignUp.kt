@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.room.Room
 import com.example.o_bako.DatabaseRoom.DBHelperRoom
 import com.example.o_bako.DatabaseRoom.UserRoom
-import com.example.o_bako.others.ShPrefHelper
+import com.example.o_bako.Others.ShPrefHelper
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
 
