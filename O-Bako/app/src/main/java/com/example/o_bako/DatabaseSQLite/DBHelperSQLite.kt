@@ -11,7 +11,11 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
         context, DATABASE_NAME,null, DB_VERSION) {
     companion object {
         private val DB_VERSION = 1
+<<<<<<< HEAD
         private val DATABASE_NAME = "test.db"
+=======
+        private val DATABASE_NAME = "o-bakosqllite.db"
+>>>>>>> 488eee0467fce7c4ff76331531b2b08483b9bbdb
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -36,7 +40,7 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
         val contentValues = ContentValues().apply {
             put(barangDB.tableBarang.COLUMN_NAMA, data.Nama)
             put(barangDB.tableBarang.COLUMN_DESKRIPSI, data.Deskripsi)
-            put(barangDB.tableBarang.COLUMN_QTY,data.Qty)
+            put(barangDB.tableBarang.COLUMN_QTY, data.Qty)
             put(barangDB.tableBarang.COLUMN_HARGA, data.Harga_Barang)
         }
         val success = db.insert(
@@ -49,8 +53,8 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
 
     fun getBarang(): MutableList<Data> {
         val dataList : MutableList<Data> = mutableListOf()
-        val query = "SELECT * " +
-                "FROM ${barangDB.tableBarang.TABLE_BARANG}"
+        val query = "SELECT * FROM" +
+                "${barangDB.tableBarang.TABLE_BARANG}"
         val db = this.readableDatabase
         var cursor: Cursor? = null
         try {

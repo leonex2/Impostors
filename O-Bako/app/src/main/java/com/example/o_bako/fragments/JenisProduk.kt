@@ -47,13 +47,14 @@ class JenisProduk : Fragment()
 
     private lateinit var myJenisBarangRecycleAdapter : JenisBarangRecycleAdapter
     private var Stock : MutableList<Data> = mutableListOf()
-    private var mySQLite : DBHelperSQLite ?= null
+    private var mySQLite : DBHelperSQLite? = null
 //    var myPresenter = ModelPresenter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mySQLite = DBHelperSQLite(context!!)
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_jenis_produk, container, false)
         val itemList = view.findViewById<RecyclerView>(R.id.itemView)
@@ -74,6 +75,7 @@ class JenisProduk : Fragment()
     private fun dialogAddBarang() {
         var BuilderDialog = AlertDialog.Builder(context)
         var inflater = layoutInflater.inflate(R.layout.alert_add_barang,null)
+
         BuilderDialog.setView(inflater)
         BuilderDialog.setPositiveButton("Add"){ dialogInterface: DialogInterface, i: Int ->
             var nama = inflater.findViewById<EditText>(R.id.nama_barang)
