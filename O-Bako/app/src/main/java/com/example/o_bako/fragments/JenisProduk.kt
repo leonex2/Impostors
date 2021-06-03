@@ -61,18 +61,19 @@ class JenisProduk : Fragment()
         val btn_addBarang = view.findViewById<Button>(R.id.addBarang)
 //        var strUrl = "https://i.pinimg.com/originals/a1/c6/84/a1c684556890ce23c4811e32c2b882a7.png"
 //        myPresenter.initRecycle()
-        myJenisBarangRecycleAdapter = JenisBarangRecycleAdapter(Stock)
-        itemList.adapter = myJenisBarangRecycleAdapter
-        itemList.layoutManager = LinearLayoutManager(this.activity)
 
         btn_addBarang.setOnClickListener {
             dialogAddBarang()
             readList()
         }
+        myJenisBarangRecycleAdapter = JenisBarangRecycleAdapter(Stock)
+        itemList.adapter = myJenisBarangRecycleAdapter
+        itemList.layoutManager = LinearLayoutManager(this.activity)
         return view
     }
 
     private fun dialogAddBarang() {
+        mySQLite = DBHelperSQLite(context!!)
         var BuilderDialog = AlertDialog.Builder(context)
         var inflater = layoutInflater.inflate(R.layout.alert_add_barang,null)
 
@@ -99,6 +100,7 @@ class JenisProduk : Fragment()
     }
 
     private fun readList() {
+        mySQLite = DBHelperSQLite(context!!)
         var hasil = ""
         doAsync {
             Stock = mySQLite?.getBarang()!!.toMutableList()
