@@ -88,11 +88,6 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
         return dataList
     }
 
-    fun deleteData(){
-        var db = this.writableDatabase
-        db.delete(barangDB.tableBarang.TABLE_BARANG,null,null)
-    }
-
     fun beginDataTransaction(){
         this.writableDatabase.beginTransaction()
     }
@@ -103,6 +98,7 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
     fun endDataTransaction(){
         this.writableDatabase.endTransaction()
     }
+
     fun addDataTranscation(data : Data){
         var query = "INSERT INTO ${barangDB.tableBarang.TABLE_BARANG} " +
                 "(${barangDB.tableBarang.COLUMN_NAMA}" +
@@ -116,5 +112,61 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
         statement.bindString(4,data.Harga_Barang)
         statement.execute()
         statement.clearBindings()
+    }
+
+    fun updateDataTransaction(data : Data){
+        var query = "UPDATE ${barangDB.tableBarang.TABLE_BARANG} SET " +
+                "${barangDB.tableBarang.COLUMN_NAMA} = ?,"+
+                "${barangDB.tableBarang.COLUMN_DESKRIPSI} = ?,"+
+                "${barangDB.tableBarang.COLUMN_QTY} = ?,"+
+                "${barangDB.tableBarang.COLUMN_HARGA} = ? WHERE ${barangDB.tableBarang.COLUMN_ID}=?"
+        val statement = this.writableDatabase.compileStatement(query)
+        statement.bindString(1, data.Nama)
+        statement.bindString(2, data.Deskripsi)
+        statement.bindString(3, data.Qty)
+        statement.bindString(4, data.Harga_Barang)
+        statement.bindLong(5, data.id.toLong())
+        statement.execute()
+        statement.clearBindings()
+    }
+
+    fun getDataTransaction() : MutableList<Data> {
+        val itemList: MutableList<Data> = mutableListOf()
+        val query = "Select * " +
+                "FROM ${barangDB.tableBarang.TABLE_BARANG}"
+        val db = this.readableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLException) {
+            //db.execSQL(SELECT_ROOM)
+            return ArrayList()
+        }
+        var idBarang: Int = 1
+        var namaBarang: String = ""
+        var deskripsiBarang: String = ""
+        var hargaBarang: String = ""
+        var qtyBarang: String = ""
+        if (cursor.moveToFirst()) {
+            do {
+                idBarang = cursor.getInt(
+                        cursor.getColumnIndex(barangDB.tableBarang.COLUMN_ID)
+                )
+                namaBarang = cursor.getString(
+                        cursor.getColumnIndex(barangDB.tableBarang.COLUMN_NAMA)
+                )
+                deskripsiBarang = cursor.getString(
+                        cursor.getColumnIndex(barangDB.tableBarang.COLUMN_DESKRIPSI)
+                )
+                hargaBarang = cursor.getString(
+                        cursor.getColumnIndex(barangDB.tableBarang.COLUMN_HARGA)
+                )
+                qtyBarang = cursor.getString(
+                        cursor.getColumnIndex(barangDB.tableBarang.COLUMN_QTY)
+                )
+                itemList.add(Data(idBarang, namaBarang, deskripsiBarang, qtyBarang, hargaBarang))
+            } while (cursor.moveToNext())
+        }
+        return itemList
     }
 }

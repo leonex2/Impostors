@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.o_bako.DatabaseSQLite.Data
 
-class JenisBarangRecycleAdapter (DataBarang : MutableList<Data>) : RecyclerView.Adapter<JenisBarangRecycleAdapter.Holder>(){
+class JenisBarangRecycleAdapter (DataBarang : MutableList<Data>) :
+        RecyclerView.Adapter<JenisBarangRecycleAdapter.Holder>(){
     private val dataStock = DataBarang
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
