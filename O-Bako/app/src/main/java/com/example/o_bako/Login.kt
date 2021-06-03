@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.room.Room
 import com.example.o_bako.DatabaseRoom.DBHelperRoom
+import com.example.o_bako.DatabaseSQLite.DBHelperSQLite
+import com.example.o_bako.DatabaseSQLite.Data
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
@@ -15,6 +17,7 @@ import org.jetbrains.anko.uiThread
 import java.util.*
 
 class Login : AppCompatActivity() {
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +66,7 @@ class Login : AppCompatActivity() {
             startActivity(intentSignup)
         }
     }
+
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
 //        if (requestCode == EXTRA_REQUEST_CODE){

@@ -101,9 +101,9 @@ class DBHelperSQLite(context : Context) :SQLiteOpenHelper(
 
     fun addDataTranscation(data : Data){
         var query = "INSERT INTO ${barangDB.tableBarang.TABLE_BARANG} " +
-                "(${barangDB.tableBarang.COLUMN_NAMA} " +
-                "${barangDB.tableBarang.COLUMN_DESKRIPSI} " +
-                "${barangDB.tableBarang.COLUMN_QTY} " +
+                "(${barangDB.tableBarang.COLUMN_NAMA}," +
+                "${barangDB.tableBarang.COLUMN_DESKRIPSI}," +
+                "${barangDB.tableBarang.COLUMN_QTY}," +
                 "${barangDB.tableBarang.COLUMN_HARGA}) VALUES (?,?,?,?) "
         val statement = this.writableDatabase.compileStatement(query)
         statement.bindString(1,data.Nama)
