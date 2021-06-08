@@ -1,4 +1,4 @@
-package com.example.o_bako
+package com.example.o_bako.Activities
 
 import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,7 @@ import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.o_bako.Others.ContactList
 import com.example.o_bako.Others.ContactRecycle
+import com.example.o_bako.R
 import kotlinx.android.synthetic.main.activity_invite_friend.*
 import kotlinx.android.synthetic.main.fragment_jenis_produk.*
 import kotlinx.android.synthetic.main.recycle_contact_list.view.*

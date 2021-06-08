@@ -1,4 +1,4 @@
-package com.example.o_bako
+package com.example.o_bako.Activities
 
 import android.content.Intent
 import android.os.Build
@@ -8,8 +8,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.room.Room
 import com.example.o_bako.DatabaseRoom.DBHelperRoom
-import com.example.o_bako.DatabaseSQLite.DBHelperSQLite
-import com.example.o_bako.DatabaseSQLite.Data
+import com.example.o_bako.R
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
@@ -31,7 +30,7 @@ class Login : AppCompatActivity() {
         ).build()
 
         btn_login.setOnClickListener {
-            val intentToMainHome = Intent(this,MainActivity::class.java)
+            val intentToMainHome = Intent(this, MainActivity::class.java)
             if (input_login.text.toString().isEmpty() && input_password.text.toString().isEmpty()){
                 Toast.makeText(this,"Data tolong diisi",Toast.LENGTH_SHORT).show()
             }
@@ -62,7 +61,7 @@ class Login : AppCompatActivity() {
             }
         }
         btn_signup.setOnClickListener{
-            val intentSignup = Intent(this,SignUp::class.java)
+            val intentSignup = Intent(this, SignUp::class.java)
             startActivity(intentSignup)
         }
     }

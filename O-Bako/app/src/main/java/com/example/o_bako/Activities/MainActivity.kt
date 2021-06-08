@@ -1,4 +1,4 @@
-package com.example.o_bako
+package com.example.o_bako.Activities
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.o_bako.DatabaseSQLite.DBHelperSQLite
 import com.example.o_bako.DatabaseSQLite.Data
 import com.example.o_bako.Fragments.*
+import com.example.o_bako.R
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity(){
 //    SQLite
     var mySQLite : DBHelperSQLite ?= null
 //    Untuk Preload Data
-    var myFirstRunPref : PreLoaderShared ?= null
+    var myFirstRunPref : PreLoaderShared?= null
 //    Dummy Data
     var dummyDataList = listOf(
             Data(1,"Barang A","Ini Barang A","1","1000"),

@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.room.Room
 import com.example.o_bako.DatabaseRoom.DBHelperRoom
-import com.example.o_bako.Login
+import com.example.o_bako.Activities.Login
 import com.example.o_bako.R
 import org.jetbrains.anko.doAsync
 
@@ -68,7 +68,7 @@ class Setting : Fragment() {
             doAsync {
                 db.userDao().deleteAccount(1)
             }
-            var intentToLogin = Intent(context,Login::class.java)
+            var intentToLogin = Intent(context, Login::class.java)
             startActivity(intentToLogin)
         }
         return view

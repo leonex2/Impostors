@@ -5,6 +5,8 @@ import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import com.example.o_bako.Activities.Login
+import com.example.o_bako.Activities.SplashScreen
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

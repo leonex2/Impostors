@@ -1,4 +1,4 @@
-package com.example.o_bako
+package com.example.o_bako.Activities
 
 import android.content.Context
 

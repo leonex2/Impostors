@@ -1,15 +1,12 @@
-package com.example.o_bako
+package com.example.o_bako.Activities
 
-import android.annotation.TargetApi
 import android.content.Intent
-import android.media.AudioManager
-import android.media.SoundPool
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
-import android.widget.Toast
+import com.example.o_bako.R
+
 //private var splash_soundpool : SoundPool? = null
 //private var splash_soundID = 0
 class SplashScreen : AppCompatActivity() {

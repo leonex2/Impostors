@@ -1,4 +1,4 @@
-package com.example.o_bako
+package com.example.o_bako.Activities
 
 import android.content.Intent
 import android.os.Build
@@ -9,7 +9,10 @@ import androidx.annotation.RequiresApi
 import androidx.room.Room
 import com.example.o_bako.DatabaseRoom.DBHelperRoom
 import com.example.o_bako.DatabaseRoom.UserRoom
+import com.example.o_bako.EXTRA_PASSWORD
+import com.example.o_bako.EXTRA_USERNAME
 import com.example.o_bako.Others.ShPrefHelper
+import com.example.o_bako.R
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
 
@@ -30,7 +33,7 @@ class SignUp : AppCompatActivity() {
         ).build()
 
         btn_register.setOnClickListener {
-            val intentToLogin = Intent(this,Login::class.java)
+            val intentToLogin = Intent(this, Login::class.java)
             var user_name = reg_name.text.toString()
             var username = reg_username.text.toString()
             var user_pw = reg_passwd.text.toString()

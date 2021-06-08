@@ -14,8 +14,8 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.o_bako.InviteFriend
-import com.example.o_bako.MainActivity
+import com.example.o_bako.Activities.InviteFriend
+import com.example.o_bako.Activities.MainActivity
 import com.example.o_bako.R
 import com.example.o_bako.Services.*
 import kotlinx.android.synthetic.main.activity_login.*
