@@ -6,7 +6,7 @@ import com.example.o_bako.TEMP_HOMEADDRESS
 import com.example.o_bako.TEMP_NAMA
 import com.example.o_bako.TEMP_PHONE
 
-class ShPrefHelper(context : Context, filename : String) {
+class MySharedPreferenceHelper(context : Context, filename : String) {
     val TEMP_USERNAME = "TEMP_USERNAME"
     val TEMP_PASSWORD = "TEMP_PASSWORD"
     val TEMP_EMAIL = "TEMP_EMAIL"

@@ -1,0 +1,39 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:background="@color/white"
+    android:theme="@style/ThemeOverlay.OBako.AppWidgetContainer"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/appLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="O-Bako"
+        android:text="O-Bako"
+        android:textColor="#03dafc"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"/>
+
+    <TextView
+        android:id="@+id/appInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:contentDescription="O-Bako"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/anotherInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="O-Bako"
+        android:textSize="17sp"
+        android:textColor="#32df32"
+        android:textStyle="bold|italic"/>
+
+</LinearLayout>

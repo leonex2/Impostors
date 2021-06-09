@@ -11,14 +11,14 @@ import com.example.o_bako.DatabaseRoom.DBHelperRoom
 import com.example.o_bako.DatabaseRoom.UserRoom
 import com.example.o_bako.EXTRA_PASSWORD
 import com.example.o_bako.EXTRA_USERNAME
-import com.example.o_bako.Others.ShPrefHelper
+import com.example.o_bako.Others.MySharedPreferenceHelper
 import com.example.o_bako.R
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 class SignUp : AppCompatActivity() {
-    private val PrefFileName = "MySharedPreference"
+    private val filenames = "MySharedFiles"
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class SignUp : AppCompatActivity() {
             var user_homeaddress = reg_alamat.text.toString()
             var user_email = reg_email.text.toString()
             var user_phone = reg_phonenumber.text.toString()
-            var mySharedHelper = ShPrefHelper(this,PrefFileName)
+            var mySharedHelper = MySharedPreferenceHelper(this,filenames)
 
 //            Room Version
             var hasil = ""
