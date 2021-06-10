@@ -15,19 +15,21 @@ import java.util.*
  * Implementation of App Widget functionality.
  */
 class InfoWidget : AppWidgetProvider() {
+
     private var myWidgetPreference : WidgetIDsHelper ?= null
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // There may be multiple widgets active, so update all of them
-
         if(myWidgetPreference == null){
             myWidgetPreference = WidgetIDsHelper(context)
         }
         var ids = myWidgetPreference?.getIds()
         myWidgetPreference?.getIds()?.clear()
+
         for (appWidgetId in appWidgetIds) {
             ids?.add(appWidgetId.toString())
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
+
         if(ids!=null){
             myWidgetPreference?.setIds(ids)
         }
@@ -81,7 +83,7 @@ class InfoWidget : AppWidgetProvider() {
             var description = "Hello ${namaUser}. ${myPesan}"
             var myOtherInfo = "Sorry we got no new Promos."
             if (namaUser == ""){
-                views.setTextViewText(R.id.appInfo, "Hello, ${myPesan}")
+                views.setTextViewText(R.id.appInfo, "Hello. ${myPesan}")
             }
             else{
                 views.setTextViewText(R.id.appInfo, description)

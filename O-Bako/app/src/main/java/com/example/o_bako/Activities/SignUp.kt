@@ -1,8 +1,5 @@
 package com.example.o_bako.Activities
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -16,10 +13,8 @@ import com.example.o_bako.EXTRA_PASSWORD
 import com.example.o_bako.EXTRA_USERNAME
 import com.example.o_bako.Others.MySharedPreferenceHelper
 import com.example.o_bako.R
-import com.example.o_bako.Widgets.InfoWidget
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
-import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 class SignUp : AppCompatActivity() {
@@ -29,19 +24,6 @@ class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
-        var alarmIntent = Intent(this, InfoWidget::class.java).let {
-            it.action = InfoWidget.ACTION_AUTO_UPDATE
-            PendingIntent.getBroadcast(
-                    this, 101,
-                    it, PendingIntent.FLAG_UPDATE_CURRENT
-            )
-        }
-        var cal = Calendar.getInstance()
-        cal.add(Calendar.MINUTE, 1)
-
-        var alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setRepeating(AlarmManager.RTC, cal.timeInMillis, 60000L, alarmIntent)
 
 //        Room Version
         var db = Room.databaseBuilder(
