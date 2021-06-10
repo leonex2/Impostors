@@ -14,8 +14,8 @@
         android:contentDescription="O-Bako"
         android:text="O-Bako"
         android:textColor="#03dafc"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"/>
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/appInfo"
@@ -24,16 +24,16 @@
         android:layout_centerVertical="true"
         android:contentDescription="O-Bako"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold|italic" />
+        android:textSize="14sp"
+        android:textStyle="italic"/>
 
     <TextView
         android:id="@+id/anotherInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="O-Bako"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textColor="#32df32"
-        android:textStyle="bold|italic"/>
+        android:textStyle="italic"/>
 
 </LinearLayout>
