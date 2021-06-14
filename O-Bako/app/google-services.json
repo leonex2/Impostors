@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "185874796606",
+    "project_id": "o-bako-90a04",
+    "storage_bucket": "o-bako-90a04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185874796606:android:dd820ace32e074de4c416f",
+        "android_client_info": {
+          "package_name": "com.example.o_bako"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185874796606-mi1dkpnrlk7ssgnhva2g18ktfud4gh8q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDprlOYo8M3-DyLKEB6C17woSGqpG1MgqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185874796606-mi1dkpnrlk7ssgnhva2g18ktfud4gh8q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
