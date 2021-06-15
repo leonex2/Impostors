@@ -125,7 +125,7 @@ class MainHome : Fragment() {
             myAdsRemover.watchTime = watchLeft - 1
             if(myRewardVid!=null && watchLeft > 0){
                 myRewardVid?.show(this.activity, OnUserEarnedRewardListener() {
-                    Toast.makeText(this.activity,"Watch ${myAdsRemover.watchTime} more to remove ads",
+                    Toast.makeText(this.activity,"Watch ${myAdsRemover.watchTime} more Video to Remove Ads",
                             Toast.LENGTH_SHORT).show()
                 })
             }
