@@ -61,6 +61,7 @@ class MainHome : Fragment() {
     lateinit var notificationManager: NotificationManager
     lateinit var notificationChannel: NotificationChannel
     lateinit var builder: Notification.Builder
+    private var myInterstitialAd : InterstitialAd?=null
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
@@ -69,6 +70,7 @@ class MainHome : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main_home, container, false)
+        MobileAds.initialize(context)
         notificationManager = requireContext()
                 .getSystemService(Context.NOTIFICATION_SERVICE)
                 as NotificationManager
@@ -82,7 +84,22 @@ class MainHome : Fragment() {
         val icon_notify = view.findViewById<ImageView>(R.id.notify_icon)
         val icon_add = view.findViewById<ImageView>(R.id.invite_icon)
 
+        InterstitialAd.load(context,"ca-app-pub-3940256099942544/1033173712",
+            AdRequest.Builder().build(), object : InterstitialAdLoadCallback(){
+                override fun onAdFailedToLoad(p0: LoadAdError) {
+                    Toast.makeText(context, "Load Failed",
+                        Toast.LENGTH_SHORT).show()
+                    myInterstitialAd = null
+                }
+
+                override fun onAdLoaded(p0: InterstitialAd) {
+                    super.onAdLoaded(p0)
+                    myInterstitialAd = p0
+                }
+            })
+
         veggies_product.setOnClickListener {
+            showInterstitial()
             val fragmentManager: FragmentManager = activity!!.supportFragmentManager
             val fragment_jenisProduk = JenisProduk()
             val fragmentTransaction = fragmentManager.beginTransaction()
@@ -126,6 +143,13 @@ class MainHome : Fragment() {
         }
         return view
     }
+
+    private fun showInterstitial() {
+        if(myInterstitialAd!=null){
+            myInterstitialAd?.show(this.activity)
+        }
+    }
+
     companion object {
         const val EXTRA_USERS = "12345"
         /**

@@ -26,8 +26,6 @@ import java.util.*
 
 class Login : AppCompatActivity() {
     private var myRewardVid : RewardedAd ?= null
-    private var myInterstitialAd : InterstitialAd?=null
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
