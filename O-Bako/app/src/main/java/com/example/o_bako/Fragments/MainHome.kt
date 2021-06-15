@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.o_bako.Activities.InviteFriend
 import com.example.o_bako.Activities.MainActivity
+import com.example.o_bako.Others.AdsSharedPreference
 import com.example.o_bako.R
 import com.example.o_bako.Services.*
 import com.google.android.gms.ads.AdRequest
@@ -64,6 +65,7 @@ class MainHome : Fragment() {
     private var myInterstitialAd : InterstitialAd?=null
     private var myRewardVid : RewardedAd ?= null
 
+    private val filename = "AdsRemoverTime"
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -87,6 +89,7 @@ class MainHome : Fragment() {
         val icon_AdsReward = view.findViewById<ImageView>(R.id.video_icon)
 
         icon_AdsReward.visibility = View.GONE
+
         MobileAds.initialize(activity){}
         RewardedAd.load(context, "ca-app-pub-3940256099942544/5224354917",
                 AdRequest.Builder().build(),
@@ -117,7 +120,19 @@ class MainHome : Fragment() {
             })
 
         icon_AdsReward.setOnClickListener {
-            showRewardVideo()
+            var myAdsRemover = AdsSharedPreference(context!!, filename)
+            var watchLeft = myAdsRemover.watchTime
+            myAdsRemover.watchTime = watchLeft - 1
+            if(myRewardVid!=null && watchLeft > 0){
+                myRewardVid?.show(this.activity, OnUserEarnedRewardListener() {
+                    Toast.makeText(this.activity,"Watch ${myAdsRemover.watchTime} more to remove ads",
+                            Toast.LENGTH_SHORT).show()
+                })
+            }
+            else{
+                icon_AdsReward.visibility = View.GONE
+                Toast.makeText(activity,"Ads Removed !",Toast.LENGTH_SHORT).show()
+            }
         }
 
         veggies_product.setOnClickListener {
@@ -167,16 +182,10 @@ class MainHome : Fragment() {
     }
 
     private fun showInterstitial() {
-        if(myInterstitialAd!=null){
+        var myAdsRemover = AdsSharedPreference(context!!, filename)
+        var timeLeft = myAdsRemover.watchTime
+        if(myInterstitialAd!=null && timeLeft > 0){
             myInterstitialAd?.show(this.activity)
-        }
-    }
-
-    private fun showRewardVideo() {
-        if(myRewardVid!=null){
-            myRewardVid?.show(this.activity, OnUserEarnedRewardListener() {
-                Toast.makeText(this.activity,"Thanks for Watching Ads!", Toast.LENGTH_SHORT).show()
-            })
         }
     }
 

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.room.Room
 import com.example.o_bako.DatabaseRoom.DBHelperRoom
+import com.example.o_bako.Others.AdsSharedPreference
 import com.example.o_bako.R
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
@@ -25,19 +26,18 @@ import org.jetbrains.anko.uiThread
 import java.util.*
 
 class Login : AppCompatActivity() {
-
+    val myfilename = "AdsRemoverTime"
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        var adsRemover = AdsSharedPreference(this,myfilename)
         MobileAds.initialize(this){}
-        myAdsView.loadAd(AdRequest.Builder().build())
-        myAdsView.adListener = object : AdListener(){
-            override fun onAdFailedToLoad(p0: LoadAdError) {
-                Toast.makeText(this@Login,"No Internet Connection !", Toast.LENGTH_SHORT).show()
-                super.onAdFailedToLoad(p0)
-            }
+        var current = adsRemover.watchTime
+        if(current > 0){
+            myAdsView.loadAd(AdRequest.Builder().build())
+            myAdsView.adListener = object : AdListener(){}
         }
 
 //        Room Version
@@ -84,6 +84,16 @@ class Login : AppCompatActivity() {
         btn_signup.setOnClickListener{
             val intentSignup = Intent(this, SignUp::class.java)
             startActivity(intentSignup)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var adsRemover = AdsSharedPreference(this,myfilename)
+        var current = adsRemover.watchTime
+        if(current > 0){
+            myAdsView.loadAd(AdRequest.Builder().build())
+            myAdsView.adListener = object : AdListener(){}
         }
     }
 
