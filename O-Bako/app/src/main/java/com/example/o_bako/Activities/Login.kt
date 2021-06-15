@@ -9,6 +9,9 @@ import androidx.annotation.RequiresApi
 import androidx.room.Room
 import com.example.o_bako.DatabaseRoom.DBHelperRoom
 import com.example.o_bako.R
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
@@ -21,6 +24,10 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        MobileAds.initialize(this){}
+        myAdsView.loadAd(AdRequest.Builder().build())
+        myAdsView.adListener = object : AdListener(){}
 
 //        Room Version
         var db = Room.databaseBuilder(
