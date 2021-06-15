@@ -53,6 +53,21 @@
         app:layout_constraintVertical_bias="0.0"
         app:tint="@color/white" />
 
+    <ImageView
+        android:id="@+id/video_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:src="@drawable/icons8_video"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintStart_toEndOf="@+id/invite_icon"
+        app:layout_constraintTop_toTopOf="@+id/login_name"
+        app:layout_constraintVertical_bias="0.0"
+        app:tint="@color/white"/>
+
     <!--    <TextView-->
 <!--        android:id="@+id/play_song"-->
 <!--        android:layout_width="wrap_content"-->

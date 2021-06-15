@@ -7,21 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.JenisProduk">
 
-    <Button
-        android:id="@+id/addBarang"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#32cb32"
-        android:padding="10dp"
-        android:text="Add Barang"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.282"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.037" />
-
     <TextView
         android:id="@+id/nama_product"
         android:layout_width="wrap_content"
@@ -59,6 +44,21 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/addBarang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#32cb32"
+        android:padding="10dp"
+        android:text="Add Barang"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.157" />
+
+    <Button
         android:id="@+id/editBarang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,10 +68,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.254"
+        app:layout_constraintHorizontal_bias="0.243"
         app:layout_constraintStart_toEndOf="@+id/addBarang"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.037" />
+        app:layout_constraintVertical_bias="0.157" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

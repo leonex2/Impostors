@@ -62,6 +62,7 @@ class MainHome : Fragment() {
     lateinit var notificationChannel: NotificationChannel
     lateinit var builder: Notification.Builder
     private var myInterstitialAd : InterstitialAd?=null
+    private var myRewardVid : RewardedAd ?= null
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
@@ -83,12 +84,29 @@ class MainHome : Fragment() {
         val veggies_product = view.findViewById<TextView>(R.id.veggies_opt)
         val icon_notify = view.findViewById<ImageView>(R.id.notify_icon)
         val icon_add = view.findViewById<ImageView>(R.id.invite_icon)
+        val icon_AdsReward = view.findViewById<ImageView>(R.id.video_icon)
+
+        icon_AdsReward.visibility = View.GONE
+        MobileAds.initialize(activity){}
+        RewardedAd.load(context, "ca-app-pub-3940256099942544/5224354917",
+                AdRequest.Builder().build(),
+                object : RewardedAdLoadCallback(){
+                    override fun onAdFailedToLoad(p0: LoadAdError) {
+                        Toast.makeText(context,"No Internect Connection", Toast.LENGTH_SHORT).show()
+                        super.onAdFailedToLoad(p0)
+                        myRewardVid = null
+                    }
+                    override fun onAdLoaded(p0: RewardedAd) {
+                        super.onAdLoaded(p0)
+                        myRewardVid = p0
+                        icon_AdsReward.visibility = View.VISIBLE
+                    }
+                })
 
         InterstitialAd.load(context,"ca-app-pub-3940256099942544/1033173712",
             AdRequest.Builder().build(), object : InterstitialAdLoadCallback(){
                 override fun onAdFailedToLoad(p0: LoadAdError) {
-                    Toast.makeText(context, "Load Failed",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "No Internect Connection", Toast.LENGTH_SHORT).show()
                     myInterstitialAd = null
                 }
 
@@ -97,6 +115,10 @@ class MainHome : Fragment() {
                     myInterstitialAd = p0
                 }
             })
+
+        icon_AdsReward.setOnClickListener {
+            showRewardVideo()
+        }
 
         veggies_product.setOnClickListener {
             showInterstitial()
@@ -147,6 +169,14 @@ class MainHome : Fragment() {
     private fun showInterstitial() {
         if(myInterstitialAd!=null){
             myInterstitialAd?.show(this.activity)
+        }
+    }
+
+    private fun showRewardVideo() {
+        if(myRewardVid!=null){
+            myRewardVid?.show(this.activity, OnUserEarnedRewardListener() {
+                Toast.makeText(this.activity,"Thanks for Watching Ads!", Toast.LENGTH_SHORT).show()
+            })
         }
     }
 
