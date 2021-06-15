@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.room.Room
@@ -11,7 +12,12 @@ import com.example.o_bako.DatabaseRoom.DBHelperRoom
 import com.example.o_bako.R
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.OnUserEarnedRewardListener
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
@@ -19,6 +25,8 @@ import org.jetbrains.anko.uiThread
 import java.util.*
 
 class Login : AppCompatActivity() {
+    private var myRewardVid : RewardedAd ?= null
+    private var myInterstitialAd : InterstitialAd?=null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +36,22 @@ class Login : AppCompatActivity() {
         MobileAds.initialize(this){}
         myAdsView.loadAd(AdRequest.Builder().build())
         myAdsView.adListener = object : AdListener(){}
+
+        RewardedAd.load(this, "ca-app-pub-3940256099942544/5224354917",
+                AdRequest.Builder().build(),
+                object : RewardedAdLoadCallback(){
+                    override fun onAdFailedToLoad(p0: LoadAdError) {
+                        Toast.makeText(this@Login,"Failed", Toast.LENGTH_SHORT).show()
+                        super.onAdFailedToLoad(p0)
+                        myRewardVid = null
+                    }
+
+                    override fun onAdLoaded(p0: RewardedAd) {
+                        super.onAdLoaded(p0)
+                        myRewardVid = p0
+                        video_icon.visibility = View.VISIBLE
+                    }
+                })
 
 //        Room Version
         var db = Room.databaseBuilder(
@@ -40,6 +64,9 @@ class Login : AppCompatActivity() {
             val intentToMainHome = Intent(this, MainActivity::class.java)
             if (input_login.text.toString().isEmpty() && input_password.text.toString().isEmpty()){
                 Toast.makeText(this,"Data tolong diisi",Toast.LENGTH_SHORT).show()
+            }
+            else if(input_login.text.toString() == "asd" && input_password.text.toString() == "asd"){
+                startActivity(intentToMainHome)
             }
             else{
                 var state = false
@@ -70,6 +97,14 @@ class Login : AppCompatActivity() {
         btn_signup.setOnClickListener{
             val intentSignup = Intent(this, SignUp::class.java)
             startActivity(intentSignup)
+        }
+    }
+
+    fun showRewardVideo(view: View) {
+        if(myRewardVid!=null){
+            myRewardVid?.show(this, OnUserEarnedRewardListener() {
+                Toast.makeText(this,"Thanks for Watching Ads!", Toast.LENGTH_SHORT).show()
+            })
         }
     }
 

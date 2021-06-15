@@ -53,7 +53,7 @@
         app:layout_constraintVertical_bias="0.0"
         app:tint="@color/white" />
 
-<!--    <TextView-->
+    <!--    <TextView-->
 <!--        android:id="@+id/play_song"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="30dp"-->
