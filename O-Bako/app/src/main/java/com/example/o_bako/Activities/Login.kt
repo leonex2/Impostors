@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.startActivity
 import androidx.room.Room
 import com.example.o_bako.DatabaseRoom.DBHelperRoom
+import com.example.o_bako.Firebase.FirebaseController
 import com.example.o_bako.Others.AdsSharedPreference
 import com.example.o_bako.R
 import com.google.android.gms.ads.AdListener
@@ -27,10 +29,12 @@ import java.util.*
 
 class Login : AppCompatActivity() {
     val myfilename = "AdsRemoverTime"
+    lateinit var myController : FirebaseController
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        myController = FirebaseController(this)
 
         var adsRemover = AdsSharedPreference(this,myfilename)
         MobileAds.initialize(this){}
@@ -40,45 +44,17 @@ class Login : AppCompatActivity() {
             myAdsView.adListener = object : AdListener(){}
         }
 
-//        Room Version
-        var db = Room.databaseBuilder(
-                this,
-                DBHelperRoom::class.java,
-                "obako.db"
-        ).build()
-
         btn_login.setOnClickListener {
             val intentToMainHome = Intent(this, MainActivity::class.java)
+            var myID = input_login.text.toString()
+            var myPW = input_password.text.toString()
             if (input_login.text.toString().isEmpty() && input_password.text.toString().isEmpty()){
                 Toast.makeText(this,"Data tolong diisi",Toast.LENGTH_SHORT).show()
             }
-            else if(input_login.text.toString() == "asd" && input_password.text.toString() == "asd"){
-                startActivity(intentToMainHome)
-            }
             else{
-                var state = false
-                var myLogin = input_login.text.toString()
-                var myPass = input_password.text.toString()
-                doAsync {
-                    var userList = db.userDao().getAllData()
-                    for(allData in userList){
-                        if (myLogin == allData.username){
-                            if (myPass == allData.password){
-                                startActivity(intentToMainHome)
-                                state = true
-                                break
-                            }
-                        }
-                    }
-                    uiThread {
-                        if (state) {
-                            Toast.makeText(this@Login, "Login Sukses", Toast.LENGTH_SHORT)
-                                    .show()
-                        }
-                        else
-                            Toast.makeText(this@Login,"Username atau Password Salah",Toast.LENGTH_SHORT).show()
-                    }
-                }
+                myController.myAuth(myID,myPW)
+                startActivity(intentToMainHome)
+                Toast.makeText(this,"Login Berhasil !", Toast.LENGTH_SHORT).show()
             }
         }
         btn_signup.setOnClickListener{
