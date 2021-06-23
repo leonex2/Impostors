@@ -74,13 +74,6 @@ class MainActivity : AppCompatActivity(){
         val fragment_home = MainHome()
         supportFragmentManager
                 .beginTransaction().replace(R.id.myContainer, fragment_home).commit()
-//        melakukan inisialisasi variable userLogin kemudian mengambil data dari EXTRA kemudian
-//        mengisi parameter pada fungsi newInstance dengan userLogin
-//        kemudian MainActivity diisi dengan fragment MainHome
-//        var userLogin = intent.getStringExtra(EXTRA_USERNAME)
-//        val fragment_home = MainHome.newInstance(userLogin.toString())
-//        supportFragmentManager
-//            .beginTransaction().replace(R.id.myContainer, fragment_home).commit()
     }
 
     private fun addItemTransaction() {

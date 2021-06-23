@@ -4,23 +4,15 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.startActivity
-import androidx.room.Room
-import com.example.o_bako.DatabaseRoom.DBHelperRoom
 import com.example.o_bako.Firebase.FirebaseController
 import com.example.o_bako.Others.AdsSharedPreference
 import com.example.o_bako.R
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.OnUserEarnedRewardListener
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.doAsync
@@ -35,7 +27,7 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         myController = FirebaseController(this)
-
+        myController.readData()
         var adsRemover = AdsSharedPreference(this,myfilename)
         MobileAds.initialize(this){}
         var current = adsRemover.watchTime
@@ -43,18 +35,26 @@ class Login : AppCompatActivity() {
             myAdsView.loadAd(AdRequest.Builder().build())
             myAdsView.adListener = object : AdListener(){}
         }
-
         btn_login.setOnClickListener {
             val intentToMainHome = Intent(this, MainActivity::class.java)
-            var myID = input_login.text.toString()
-            var myPW = input_password.text.toString()
             if (input_login.text.toString().isEmpty() && input_password.text.toString().isEmpty()){
                 Toast.makeText(this,"Data tolong diisi",Toast.LENGTH_SHORT).show()
             }
             else{
-                myController.myAuth(myID,myPW)
-                startActivity(intentToMainHome)
-                Toast.makeText(this,"Login Berhasil !", Toast.LENGTH_SHORT).show()
+                doAsync {
+                    var myLogin = input_login.text.toString()
+                    var myPassword = input_password.text.toString()
+                    var state = myController.myAuth(myLogin,myPassword)
+                    Log.w("Status", state.toString())
+                    uiThread {
+                        if(state){
+                            startActivity(intentToMainHome)
+                            Toast.makeText(this@Login,"Login Success !", Toast.LENGTH_SHORT).show()
+                        }
+                        else
+                            Toast.makeText(this@Login,"You're not Registered !", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
         btn_signup.setOnClickListener{

@@ -1,6 +1,7 @@
 package com.example.o_bako.Firebase
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,7 +34,10 @@ class FirebaseController(context: Context) {
                     for(data in snapshot.children){
                         val user = data.getValue(Users::class.java)
                         user.let{
-                            listUser.add(Users(it!!.username,it!!.password))
+                            listUser.add(Users(
+                                    it!!.myName,it!!.myUsername,it!!.myPassword,
+                                    it!!.myEmail,it!!.myAlamat,it!!.myNoHP)
+                            )
                         }
                     }
                 }
@@ -46,15 +50,19 @@ class FirebaseController(context: Context) {
         })
         return listUser
     }
-    fun myAuth(myLogin : String, myPass : String) : Boolean{
-        val getList = readData()
+
+    fun myAuth(srcUsername : String, srcPassword : String) : Boolean{
         var state = false
+        val getList = readData()
         for (data in getList){
-            if(data.username == myLogin && data.password == myPass){
-                state = true
-                break
+            if(data.myUsername == srcUsername){
+                if(data.myPassword == srcPassword){
+                    state = true
+                    break
+                }
             }
         }
+        Log.w("myAuth", state.toString())
         return state
     }
 }
